@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>MF Advisor v5.288</title>
+<title>MF Advisor v5.289</title>
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -3348,7 +3348,7 @@ function SettingsPage({allTxns,setAllTxns,sm,setSm,navByScheme,setNavByScheme,be
       if(arr?.length)bmCache[id]=arr.map(pt=>({date:toISO(pt.d instanceof Date?pt.d:new Date(pt.d)),nav:Number(pt.v||pt.nav||0).toFixed(4)}));
     }
     const data={
-      version:'5.288',
+      version:'5.289',
       exportDate:new Date().toISOString(),
       transactions:allTxns.map(t=>({...t,date:t.date instanceof Date?toISO(t.date):t.date})),
       schemeMapping:sm,
@@ -6622,8 +6622,9 @@ function GoogleDrivePanel({currentUserId,onSaveComplete,onLoadComplete,getExport
         setStatus('Signed in ✓');
         // Load folders
         gdriveListFolders(t).then(f=>{setFolders(f);
-          if(!selectedFolder&&f.length>0)setSelectedFolder(f[0].id);
-        }).catch(e=>setStatus('Error listing folders: '+e.message));
+          const pick=_store.get('mfa_gd_folder');if(!selectedFolder&&f.length>0){const p=f.find(x=>x.id===pick)||f[0];setSelectedFolder(p.id);}
+        setStatus('Signed in ✓  '+f.length+' folders found');
+        }).catch(e=>setStatus('Signed in — folder error: '+e.message));
       }
     });
     client.requestAccessToken();
@@ -6725,11 +6726,20 @@ function GoogleDrivePanel({currentUserId,onSaveComplete,onLoadComplete,getExport
               <select value={selectedFolder} onChange={e=>{setSelectedFolder(e.target.value);_store.set(GDRIVE_FOLDER_KEY,e.target.value);}}
                 style={{flex:1,padding:'5px 8px',background:C.bg,border:`1px solid ${C.border}`,
                   color:C.text,borderRadius:4,fontSize:11}}>
-                <option value="">— select folder —</option>
+                <option value="root">📁 My Drive (root)</option>
+                <option value="">— or select folder below —</option>
                 {folders.map(f=>(<option key={f.id} value={f.id}>{f.name}</option>))}
               </select>
               <button className="btn" onClick={()=>gdriveListFolders(token).then(f=>setFolders(f))}
                 style={{padding:'5px 10px',fontSize:10,background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:4}}>↺</button>
+              <button className="btn" onClick={()=>{
+                const nm=window.prompt('New folder name:','MF Advisor');
+                if(!nm)return;
+                gdriveCreateFolder(token.access_token,nm)
+                  .then(()=>gdriveListFolders(token))
+                  .then(f=>{setFolders(f);const nf=f.find(x=>x.name===nm);if(nf)setSelectedFolder(nf.id);setStatus('Folder created ✓');})
+                  .catch(e=>setStatus('Error: '+e.message));}}
+                style={{padding:'5px 10px',fontSize:10,background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:4}}>+ New</button>
             </div>
           </div>
           <div style={{display:'flex',gap:8,marginBottom:8}}>
