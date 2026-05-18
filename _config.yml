@@ -1,0 +1,13 @@
+# GitHub Pages Jekyll configuration
+source: .
+destination: ./_site
+exclude:
+  - "*.xlsx"
+  - "*.md"
+  - ".git"
+  - ".gitignore"
+  - "node_modules"
+  - "vendor"
+
+# Theme
+theme: jekyll-theme-primer
