@@ -5208,6 +5208,7 @@ function DashboardPage({sortedTxns,navByScheme,enabled,period,minDate,benchmarks
   const today=useMemo(()=>{const d=new Date();d.setHours(0,0,0,0);return d;},[]);
   const {start,end}=useMemo(()=>getPeriodDates(period,minDate,today),[period,minDate,today]);
   const enabledSet=enabled;
+  const navLoading=useMemo(()=>enabledSet.size>0&&![...enabledSet].some(s=>navByScheme[s]?.length>0),[enabledSet,navByScheme]);
 
   // Portfolio chart data
   const chartSeries=useMemo(()=>{
@@ -5342,7 +5343,7 @@ function DashboardPage({sortedTxns,navByScheme,enabled,period,minDate,benchmarks
       {/* Hero stats */}
       <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(145px,1fr))',gap:10,marginBottom:12}}>
         {[
-          {l:'Portfolio Value',v:FMT(heroStats.pv),c:C.accent,sub:navAsOf(navByScheme)||'Current market value'},
+          {l:'Portfolio Value',v:navLoading?'Fetching NAV…':FMT(heroStats.pv),c:navLoading?C.amber:C.accent,sub:navLoading?'Retrieving latest prices — please wait':navAsOf(navByScheme)||'Current market value'},
           {l:'Gross Invested',v:FMT(heroStats.invested),c:C.text,sub:'Total purchases'},
           {l:'Redeemed',v:heroStats.redeemed>0?FMT(heroStats.redeemed):'—',c:C.muted,sub:'Total withdrawals'},
           {l:'Net Deployed',v:FMT(heroStats.net),c:heroStats.net>=0?C.text:C.amber,sub:heroStats.net<0?'More withdrawn than invested':'Gross less withdrawals'},
@@ -6310,7 +6311,7 @@ function SettingsPage({allTxns,setAllTxns,sm,setSm,navByScheme,setNavByScheme,be
       if(arr?.length)bmCache[id]=arr.map(pt=>({date:toISO(pt.d instanceof Date?pt.d:new Date(pt.d)),nav:Number(pt.v||pt.nav||0).toFixed(4)}));
     }
     const data={
-      version:'6.2',
+      version:'6.0',
       exportDate:new Date().toISOString(),
       transactions:allTxns.map(t=>({...t,date:t.date instanceof Date?toISO(t.date):t.date})),
       schemeMapping:sm,
@@ -6450,17 +6451,11 @@ function SettingsPage({allTxns,setAllTxns,sm,setSm,navByScheme,setNavByScheme,be
             return at-bt;
           });
           alert(added.length+' new transactions added ('+newTxns.length+' in file, '+(newTxns.length-added.length)+' duplicates skipped).');
-              // Enable all schemes from merged result
-              const mergedSchemes=new Set(merged.map(t=>t.scheme));
-              setEnabled(p=>new Set([...p,...mergedSchemes]));
-              // Fetch NAV for any new schemes
-              const newSchemes=[...mergedSchemes].filter(s=>!navByScheme[s]&&sm[s]?.amfiCode);
-              newSchemes.forEach(s=>{
-                fetch('https://api.mfapi.in/mf/'+sm[s].amfiCode,{signal:AbortSignal.timeout(15000)})
-                  .then(r=>r.json()).then(j=>{
-                    if(j?.data?.length)setNavByScheme(p=>({...p,[s]:buildNav(j.data)}));
-                  }).catch(()=>{});
-              });
+              const ms=new Set(merged.map(t=>t.scheme));
+              setEnabled(p=>new Set([...p,...ms]));
+              const ns=[...ms].filter(s=>!navByScheme[s]&&sm[s]?.amfiCode);
+              ns.forEach(s=>fetch('https://api.mfapi.in/mf/'+sm[s].amfiCode,{signal:AbortSignal.timeout(15000)})
+                .then(r=>r.json()).then(j=>{if(j?.data?.length)setNavByScheme(p=>({...p,[s]:buildNav(j.data)}));}).catch(()=>{}));
           return merged;
         });
       }catch(err){alert('Import error: '+err.message);}
@@ -6950,7 +6945,6 @@ function SettingsPage({allTxns,setAllTxns,sm,setSm,navByScheme,setNavByScheme,be
             if(state.benchmarks?.length)setBenchmarks(state.benchmarks);
             if(state.displayCurrency)setDisplayCurrency(state.displayCurrency);
             if(state.returnBasis)setReturnBasis(state.returnBasis);
-            // Restore NAV cache
             const nb={};
             if(state.navByScheme){
               for(const[nm,arr]of Object.entries(state.navByScheme)){
@@ -6958,12 +6952,10 @@ function SettingsPage({allTxns,setAllTxns,sm,setSm,navByScheme,setNavByScheme,be
               }
             }
             setNavByScheme(nb);
-            // Enable all schemes with NAV; fall back to all schemes
             const allSchemes=[...new Set(txns.map(t=>t.scheme))];
-            const en=state.enabled?.length?new Set(state.enabled):new Set(allSchemes.filter(s=>nb[s])||allSchemes);
-            setEnabled(en);
+            setEnabled(state.enabled?.length?new Set(state.enabled):new Set(allSchemes));
             setAppState('app');
-            setTimeout(()=>fetchNavBackground(nb,smR),300);
+            setTimeout(()=>fetchNavBackground(nb,smR),100);
           }}/>
       </CollapsibleCard>
 
@@ -9027,7 +9019,7 @@ function isNavCurrent(navByScheme){
   const lbdStr=toISO(lbd);
   // Check at least half of schemes have today's (or last business day's) NAV
   const schemes=Object.keys(navByScheme);
-  if(!schemes.length)return true;
+  if(!schemes.length)return false;
   let fresh=0;
   for(const name of schemes.slice(0,10)){
     const arr=navByScheme[name];
@@ -11058,7 +11050,7 @@ function App(){
   const fetchNavBackground=useCallback(async(nb,smIn)=>{
     const cached=loadNavCache();
     const nbToUse={...cached,...(nb||navBySchemeRef.current)};
-    if(isNavCurrent(nbToUse)){setNavStatus('done');return;}
+    if(Object.keys(nbToUse).length>0&&isNavCurrent(nbToUse)){setNavStatus('done');return;}
     setNavStatus('fetching');
     const smMap=smIn||sm;
     const lbd=lastBusinessDay();
