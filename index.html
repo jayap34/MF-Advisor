@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>MF Advisor v6.2</title>
-<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+<title>MF Advisor v6.4</title>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -69,12 +69,13 @@ input[type=date],input[type=number],input[type=text]{color-scheme:dark}
 <script id="mfa-feature-db" type="application/json">{
   "meta": {
     "appName": "MF Advisor",
-    "version": "6.2",
-    "generated": "2026-06-04",
+    "version": "6.4",
+    "generated": "2026-06-23",
     "note": "100% open-source · no API keys · no subscription · local-first persistence",
-    "totalFeatures": 142,
-    "completed": 142,
-    "pending": 0
+    "totalFeatures": 157,
+    "completed": 157,
+    "pending": 0,
+    "gaps": 20
   },
   "features": [
     {
@@ -1780,6 +1781,186 @@ input[type=date],input[type=number],input[type=text]{color-scheme:dark}
       "effort": "S",
       "description": "Upload shows transactions imported, scheme count and skipped non-transaction rows; multi-sheet workbooks auto-select the sheet with the most rows.",
       "notes": "v6.2."
+    },
+    {
+      "id": "F143",
+      "category": "Data Import",
+      "feature": "Per-folio running balance for RTA imports",
+      "status": "Completed",
+      "priority": "Critical",
+      "verAdded": "v6.3",
+      "target": "v6.3",
+      "effort": "S",
+      "description": "Flat RTA dumps (CAMS/KFintech) carry no balance column. The parser now computes a per-(scheme+folio) cumulative balance via signed unit movements in date order.",
+      "notes": "v6.3: fixes balance units = 0 and portfolio value = 0 after import. Verified: 31 non-zero holdings on the real CAMS file."
+    },
+    {
+      "id": "F144",
+      "category": "UI/UX",
+      "feature": "Pinned React/Babel/XLSX dependencies",
+      "status": "Completed",
+      "priority": "Critical",
+      "verAdded": "v6.3",
+      "target": "v6.3",
+      "effort": "S",
+      "description": "CDN libraries are pinned (react 18.3.1, @babel/standalone 7.29.0, xlsx 0.18.5) to stop version drift breaking JSX compilation.",
+      "notes": "v6.3: a newer unpinned Babel rejected \">\" in JSX text, blanking the app. Pinning restores deterministic builds."
+    },
+    {
+      "id": "F145",
+      "category": "Analysis",
+      "feature": "Per-visual export: Excel / SVG / PNG / JPG",
+      "status": "Completed",
+      "priority": "High",
+      "verAdded": "v6.3",
+      "target": "v6.3",
+      "effort": "M",
+      "description": "Every chart exports SVG/PNG/JPG and its underlying data to .xlsx; every data table exports CSV and .xlsx.",
+      "notes": "v6.3: shared downloadXLSX/downloadChartJPG helpers + ExportBar. Wired into timeline, XIRR, FY, allocation, concentration, tax, holdings, transactions."
+    },
+    {
+      "id": "F146",
+      "category": "Analysis",
+      "feature": "Consolidated multi-portfolio totals",
+      "status": "Completed",
+      "priority": "High",
+      "verAdded": "v6.3",
+      "target": "v6.3",
+      "effort": "M",
+      "description": "Compare page shows a combined total across all saved portfolios (value, invested, gain, blended value-weighted XIRR, funds, transactions) with Excel export.",
+      "notes": "v6.3."
+    },
+    {
+      "id": "F147",
+      "category": "Analysis",
+      "feature": "Per-scheme cross-portfolio comparison matrix",
+      "status": "Completed",
+      "priority": "High",
+      "verAdded": "v6.3",
+      "target": "v6.3",
+      "effort": "M",
+      "description": "A scheme×portfolio matrix shows current value of each fund in every portfolio plus combined totals; funds held in >1 portfolio are flagged. Excel export included.",
+      "notes": "v6.3: directly answers \"compare across all portfolios per mutual scheme\"."
+    },
+    {
+      "id": "F148",
+      "category": "Scheme Mapping",
+      "feature": "Persistent mapping overrides (ISIN + name)",
+      "status": "Completed",
+      "priority": "High",
+      "verAdded": "v6.3",
+      "target": "v6.3",
+      "effort": "M",
+      "description": "A manual scheme→AMFI fix is remembered (keyed by ISIN and normalised name) and auto-applied to future imports across portfolios. ISIN-first matching takes priority over fuzzy name matching.",
+      "notes": "v6.3: stored in mfa_map_overrides; consulted at the top of autoMapScheme."
+    },
+    {
+      "id": "F149",
+      "category": "Auth",
+      "feature": "Privacy: recent portfolios hidden by default",
+      "status": "Completed",
+      "priority": "Medium",
+      "verAdded": "v6.3",
+      "target": "v6.3",
+      "effort": "S",
+      "description": "The saved-portfolios list on the login screen is collapsed behind an opt-in \"Show saved portfolios\" toggle.",
+      "notes": "v6.3: addresses \"recent portfolio should not be shown\"."
+    },
+    {
+      "id": "F150",
+      "category": "Scheme Mapping",
+      "feature": "Abbreviation & plan/option intelligence",
+      "status": "Completed",
+      "priority": "Critical",
+      "verAdded": "v6.4",
+      "target": "v6.4",
+      "effort": "M",
+      "description": "Expands RTA shorthands — Dir-G→Direct Growth, Reg-G→Regular Growth, ABSL→Aditya Birla Sun Life, IDFC→Bandhan etc. Detects plan (Direct/Regular, default Regular) and option (Growth/IDCW). AMC-gated scoring rejects wrong fund houses.",
+      "notes": "v6.4: 60+ AMC aliases; parseScheme()/matchScore() rewrite. Verified on ABSL/Reg-G/\"Growth Growth\"/Dir-IDCW examples."
+    },
+    {
+      "id": "F151",
+      "category": "Scheme Mapping",
+      "feature": "Purchase-day NAV cross-check disambiguation",
+      "status": "Completed",
+      "priority": "Critical",
+      "verAdded": "v6.4",
+      "target": "v6.4",
+      "effort": "M",
+      "description": "When candidates are close, compares each candidate scheme’s NAV on the transaction date to the recorded price and picks the match within 3%. Confidence + match-method badges shown per row.",
+      "notes": "v6.4: verifyByNav(); NAV history cached. Badges: ISIN / NAV✓ / saved / high-medium-low."
+    },
+    {
+      "id": "F152",
+      "category": "Analysis",
+      "feature": "Global consolidation scope (This / All combined)",
+      "status": "Completed",
+      "priority": "High",
+      "verAdded": "v6.4",
+      "target": "v6.4",
+      "effort": "L",
+      "description": "A header toggle merges every saved portfolio’s transactions + NAV into ALL visuals (Dashboard, Performance, Tax, Analysis, Insights, etc.), deduped. Editing still targets the active portfolio.",
+      "notes": "v6.4: consolidated memo + effTxns/effNav threaded to visual pages; banner shown in combined mode."
+    },
+    {
+      "id": "F153",
+      "category": "Data Import",
+      "feature": "Post-import validation report",
+      "status": "Completed",
+      "priority": "Medium",
+      "verAdded": "v6.4",
+      "target": "v6.4",
+      "effort": "S",
+      "description": "After parsing: transaction & scheme counts, date range, invested/redeemed totals, per-type breakdown, admin rows skipped, and a missing-price warning.",
+      "notes": "v6.4."
+    },
+    {
+      "id": "F154",
+      "category": "Data Import",
+      "feature": "Broker statement header aliases + stronger dedup",
+      "status": "Completed",
+      "priority": "Medium",
+      "verAdded": "v6.4",
+      "target": "v6.4",
+      "effort": "S",
+      "description": "Recognises Groww/Kuvera/MFU/Zerodha column names (order date, order type, traded value, no. of units, etc.). Re-import dedup now keys on ISIN/scheme+folio+date+amount+units.",
+      "notes": "v6.4."
+    },
+    {
+      "id": "F155",
+      "category": "Scheme Mapping",
+      "feature": "Local AMFI master cache",
+      "status": "Completed",
+      "priority": "Low",
+      "verAdded": "v6.4",
+      "target": "v6.4",
+      "effort": "S",
+      "description": "AMFI master list cached locally for 24h — faster mapping and works offline once warmed; stale cache used if network fails.",
+      "notes": "v6.4."
+    },
+    {
+      "id": "F156",
+      "category": "Tax",
+      "feature": "Equity LTCG grandfathering (31-Jan-2018)",
+      "status": "Completed",
+      "priority": "Low",
+      "verAdded": "v6.4",
+      "target": "v6.4",
+      "effort": "M",
+      "description": "For equity units bought on/before 31 Jan 2018, cost basis = max(actual, min(FMV-31Jan2018, sale)) using available NAV. Disclaimer updated.",
+      "notes": "v6.4."
+    },
+    {
+      "id": "F157",
+      "category": "Auth",
+      "feature": "Unified configurable Google Client ID",
+      "status": "Completed",
+      "priority": "Medium",
+      "verAdded": "v6.4",
+      "target": "v6.4",
+      "effort": "S",
+      "description": "Login Google sign-in now uses the same user-set Client ID as Settings, so self-hosters can enable Google on their own domain with no code change.",
+      "notes": "v6.4."
     }
   ],
   "bugs": [
@@ -1998,9 +2179,149 @@ input[type=date],input[type=number],input[type=text]{color-scheme:dark}
       "fix": "v6.2: after sign-in, auto-download mfa-<id>.json from Drive and apply via the JSON-restore path when local is empty.",
       "verFixed": "v6.2",
       "reported": "2026-06-04"
+    },
+    {
+      "bugId": "B019",
+      "featureId": "F144",
+      "category": "UI/UX",
+      "title": "App blank after import — React error #300 / Babel rejects \">\" in JSX",
+      "status": "Fixed",
+      "severity": "Critical",
+      "rootCause": "Two causes: (1) a touch-handler useRef in LineChart sat AFTER an early return, changing hook count on empty charts (React #300); (2) the unpinned @babel/standalone updated and began rejecting raw \">\" inside JSX text.",
+      "fix": "v6.3: moved all hooks above early returns; pinned React 18.3.1 / Babel 7.29.0 / xlsx 0.18.5.",
+      "verFixed": "v6.3",
+      "reported": "2026-06-20"
+    },
+    {
+      "bugId": "B020",
+      "featureId": "F143",
+      "category": "Data Import",
+      "title": "Balance units = 0 and portfolio value = 0 after CAMS/KFintech import",
+      "status": "Fixed",
+      "severity": "Critical",
+      "rootCause": "The new flat-RTA parser hardcoded balUnits:0, but the engine treats an import row's balUnits as the authoritative cumulative balance — so holdings and value computed to zero.",
+      "fix": "v6.3: compute per-(scheme+folio) running balance with unitSign() in date order; clamp float dust to 0.",
+      "verFixed": "v6.3",
+      "reported": "2026-06-20"
+    },
+    {
+      "bugId": "B021",
+      "featureId": "F148",
+      "category": "Scheme Mapping",
+      "title": "Poor scheme mapping; manual fixes not remembered",
+      "status": "Fixed",
+      "severity": "High",
+      "rootCause": "Matching relied on fuzzy fund-name search; manual corrections were not persisted, so re-imports reverted to wrong matches.",
+      "fix": "v6.3: ISIN-first matching + persistent overrides keyed by ISIN and normalised name, auto-applied on future imports.",
+      "verFixed": "v6.3",
+      "reported": "2026-06-20"
+    },
+    {
+      "bugId": "B022",
+      "featureId": "F150",
+      "category": "Scheme Mapping",
+      "title": "Common shorthands (Dir-G, Reg-G, ABSL, \"Growth Growth\") not recognised",
+      "status": "Fixed",
+      "severity": "High",
+      "rootCause": "Matcher used raw token overlap with a tiny AMC lock list; it could not expand RTA abbreviations or default unspecified plans to Regular.",
+      "fix": "v6.4: parseScheme() expands 60+ AMC aliases + plan/option tokens; matchScore() gates on AMC and scores plan/option. NAV cross-check confirms.",
+      "verFixed": "v6.4",
+      "reported": "2026-06-22"
+    },
+    {
+      "bugId": "B023",
+      "featureId": "F114",
+      "category": "Sync",
+      "title": "Create/manage Google Drive folder did not work",
+      "status": "Fixed",
+      "severity": "High",
+      "rootCause": "gdriveCreateFolder() was called by the \"+ New\" button but was never defined (only referenced in the changelog), and was invoked with token.access_token while sibling helpers expect the token object — so clicking it threw and folder creation/management silently failed.",
+      "fix": "v6.4: implemented gdriveCreateFolder(token,name,parentId) (reuses an existing same-named folder, drive.file scope), fixed the call site to pass the token object, and surfaced create status. Added a static audit pass (strip comments/strings → flag bare calls with no definition) to catch this class of bug.",
+      "verFixed": "v6.4",
+      "reported": "2026-06-23"
     }
   ],
   "changelog": [
+    {
+      "version": "6.4",
+      "date": "2026-06-23",
+      "type": "Fix",
+      "featureId": "F114",
+      "change": "Fixed Google Drive folder create/manage (gdriveCreateFolder was undefined + wrong arg). Added an undefined-function static audit to the release checklist.",
+      "author": "Dev"
+    },
+    {
+      "version": "6.4",
+      "date": "2026-06-22",
+      "type": "Fix",
+      "featureId": "F150,F151",
+      "change": "MAJOR scheme-mapping overhaul: expands Dir-G/Reg-G/ABSL/IDFC etc., detects plan & option (Regular default), AMC-gated scoring, and purchase-day NAV cross-check to disambiguate. Confidence badges per row.",
+      "author": "Dev"
+    },
+    {
+      "version": "6.4",
+      "date": "2026-06-22",
+      "type": "Feature",
+      "featureId": "F152",
+      "change": "Global consolidation: a This/All-combined toggle merges every saved portfolio into ALL charts, tables and reports (deduped).",
+      "author": "Dev"
+    },
+    {
+      "version": "6.4",
+      "date": "2026-06-22",
+      "type": "Feature",
+      "featureId": "F153,F154",
+      "change": "Post-import validation report; broker header aliases (Groww/Kuvera/MFU/Zerodha); stronger re-import dedup.",
+      "author": "Dev"
+    },
+    {
+      "version": "6.4",
+      "date": "2026-06-22",
+      "type": "Feature",
+      "featureId": "F155,F156,F157",
+      "change": "24h AMFI master cache; equity LTCG grandfathering (31-Jan-2018); unified configurable Google Client ID for login.",
+      "author": "Dev"
+    },
+    {
+      "version": "6.3",
+      "date": "2026-06-20",
+      "type": "Fix",
+      "featureId": "F143,F144",
+      "change": "CRITICAL: fixed app-blank-after-import (React #300 + Babel drift) and balance-units/portfolio-value = 0 (per-folio running balance). Dependencies pinned.",
+      "author": "Dev"
+    },
+    {
+      "version": "6.3",
+      "date": "2026-06-20",
+      "type": "Feature",
+      "featureId": "F145",
+      "change": "Per-visual export: every chart → SVG/PNG/JPG + Excel; every table → CSV + Excel.",
+      "author": "Dev"
+    },
+    {
+      "version": "6.3",
+      "date": "2026-06-20",
+      "type": "Feature",
+      "featureId": "F146,F147",
+      "change": "Multi-portfolio: consolidated combined totals + per-scheme cross-portfolio comparison matrix, both with Excel export.",
+      "author": "Dev"
+    },
+    {
+      "version": "6.3",
+      "date": "2026-06-20",
+      "type": "Feature",
+      "featureId": "F148",
+      "change": "ISIN-first scheme mapping with persistent manual overrides auto-applied to future imports.",
+      "author": "Dev"
+    },
+    {
+      "version": "6.3",
+      "date": "2026-06-20",
+      "type": "Feature",
+      "featureId": "F149",
+      "change": "Privacy: recent portfolios hidden behind an opt-in reveal on the login screen.",
+      "author": "Dev"
+    },
     {
       "version": "6.2",
       "date": "2026-06-04",
@@ -2686,8 +3007,8 @@ input[type=date],input[type=number],input[type=text]{color-scheme:dark}
     }
   ],
   "summary": {
-    "total": 142,
-    "done": 142,
+    "total": 157,
+    "done": 157,
     "pending": 0,
     "other": 0,
     "byCategory": [
@@ -2707,15 +3028,15 @@ input[type=date],input[type=number],input[type=text]{color-scheme:dark}
       },
       {
         "category": "Analysis",
-        "total": 26,
-        "done": 26,
+        "total": 30,
+        "done": 30,
         "pending": 0,
         "pct": 1
       },
       {
         "category": "Auth",
-        "total": 5,
-        "done": 5,
+        "total": 7,
+        "done": 7,
         "pending": 0,
         "pct": 1
       },
@@ -2735,8 +3056,8 @@ input[type=date],input[type=number],input[type=text]{color-scheme:dark}
       },
       {
         "category": "Data Import",
-        "total": 13,
-        "done": 13,
+        "total": 16,
+        "done": 16,
         "pending": 0,
         "pct": 1
       },
@@ -2812,8 +3133,8 @@ input[type=date],input[type=number],input[type=text]{color-scheme:dark}
       },
       {
         "category": "Scheme Mapping",
-        "total": 10,
-        "done": 10,
+        "total": 14,
+        "done": 14,
         "pending": 0,
         "pct": 1
       },
@@ -2833,6 +3154,13 @@ input[type=date],input[type=number],input[type=text]{color-scheme:dark}
       },
       {
         "category": "Tax",
+        "total": 2,
+        "done": 2,
+        "pending": 0,
+        "pct": 1
+      },
+      {
+        "category": "UI/UX",
         "total": 1,
         "done": 1,
         "pending": 0,
@@ -2846,7 +3174,177 @@ input[type=date],input[type=number],input[type=text]{color-scheme:dark}
         "pct": 1
       }
     ]
-  }
+  },
+  "gapAnalysis": [
+    {
+      "id": "G01",
+      "area": "Regression/Crash",
+      "gap": "React #300 crash / blank visuals after import",
+      "severity": "Critical",
+      "status": "Fixed v6.3",
+      "solution": "Move all hooks above early returns; pin Babel."
+    },
+    {
+      "id": "G02",
+      "area": "Regression/Data",
+      "gap": "Balance units = 0 for all imported transactions",
+      "severity": "Critical",
+      "status": "Fixed v6.3",
+      "solution": "Compute per-folio running balance in the parser."
+    },
+    {
+      "id": "G03",
+      "area": "Regression/Data",
+      "gap": "Portfolio value always 0",
+      "severity": "Critical",
+      "status": "Fixed v6.3",
+      "solution": "Resolved via G02."
+    },
+    {
+      "id": "G04",
+      "area": "Scheme Mapping",
+      "gap": "Mapping logic poor; wrong/again-and-again matching",
+      "severity": "High",
+      "status": "Done v6.4",
+      "solution": "ISIN-first match + persistent overrides + 24h local AMFI master cache."
+    },
+    {
+      "id": "G05",
+      "area": "Scheme Mapping",
+      "gap": "Direct/Regular & Growth/IDCW mismatched",
+      "severity": "High",
+      "status": "Done v6.4",
+      "solution": "Abbreviation/AMC expansion, plan/option detection (Regular default), AMC-gated scoring, purchase-day NAV cross-check."
+    },
+    {
+      "id": "G06",
+      "area": "Scheme Mapping",
+      "gap": "Manual override not persistent",
+      "severity": "Medium",
+      "status": "Fixed v6.3",
+      "solution": "mfa_map_overrides keyed by ISIN/name, auto-applied."
+    },
+    {
+      "id": "G07",
+      "area": "Multi-Portfolio",
+      "gap": "Cannot combine multiple portfolios",
+      "severity": "High",
+      "status": "Done v6.3",
+      "solution": "Consolidated totals across all saved portfolios on Compare."
+    },
+    {
+      "id": "G08",
+      "area": "Multi-Portfolio",
+      "gap": "Visuals/reports do not reflect combined portfolios",
+      "severity": "High",
+      "status": "Done v6.4",
+      "solution": "Global This/All-combined scope merges every portfolio into all visuals (deduped)."
+    },
+    {
+      "id": "G09",
+      "area": "Multi-Portfolio",
+      "gap": "No compare across portfolios per scheme",
+      "severity": "High",
+      "status": "Done v6.3",
+      "solution": "Per-scheme cross-portfolio matrix with Excel export."
+    },
+    {
+      "id": "G10",
+      "area": "Privacy/Login",
+      "gap": "Recent portfolios shown on login",
+      "severity": "Medium",
+      "status": "Fixed v6.3",
+      "solution": "Hidden behind opt-in reveal."
+    },
+    {
+      "id": "G11",
+      "area": "Visual Export",
+      "gap": "No per-visual Excel export",
+      "severity": "High",
+      "status": "Done v6.3",
+      "solution": "downloadXLSX on every chart & table."
+    },
+    {
+      "id": "G12",
+      "area": "Visual Export",
+      "gap": "No per-visual SVG/PNG/JPG export",
+      "severity": "High",
+      "status": "Done v6.3",
+      "solution": "SVG serialize + canvas PNG/JPG on every chart."
+    },
+    {
+      "id": "G13",
+      "area": "Auth",
+      "gap": "Google sign-in only works on one domain",
+      "severity": "Medium",
+      "status": "Done v6.4",
+      "solution": "Google Client ID configurable in Settings and used by login."
+    },
+    {
+      "id": "G14",
+      "area": "Auth/Sync",
+      "gap": "Drive auto-restore needs prior save + scope",
+      "severity": "Medium",
+      "status": "Partial v6.4",
+      "solution": "Drive auto-restore on sign-in shipped; manual push in Settings. Auto-save on first import planned."
+    },
+    {
+      "id": "G15",
+      "area": "Import",
+      "gap": "No broker exports (Zerodha/Groww/MFU)",
+      "severity": "Medium",
+      "status": "Done v6.4",
+      "solution": "Broker header aliases (Groww/Kuvera/MFU/Zerodha) over the flat-RTA core."
+    },
+    {
+      "id": "G16",
+      "area": "Import",
+      "gap": "Password-protected CAS PDFs unsupported",
+      "severity": "Low",
+      "status": "Open v6.5",
+      "solution": "Client-side PDF decryption with user password."
+    },
+    {
+      "id": "G17",
+      "area": "Import",
+      "gap": "Re-import can duplicate transactions",
+      "severity": "Medium",
+      "status": "Done v6.4",
+      "solution": "Re-import dedup keys on ISIN/scheme+folio+date+amount+units."
+    },
+    {
+      "id": "G18",
+      "area": "Data Quality",
+      "gap": "NAV gaps for merged/closed schemes",
+      "severity": "Medium",
+      "status": "Open v6.5",
+      "solution": "Manual NAV CSV per scheme + flagged interpolation."
+    },
+    {
+      "id": "G19",
+      "area": "UX/Trust",
+      "gap": "No clear post-import validation summary",
+      "severity": "Medium",
+      "status": "Done v6.4",
+      "solution": "Structured post-import validation report (counts, types, range, totals, warnings)."
+    },
+    {
+      "id": "G20",
+      "area": "Tax",
+      "gap": "FIFO vs broker method / changing rules",
+      "severity": "Low",
+      "status": "Done v6.4",
+      "solution": "Equity LTCG grandfathering (31-Jan-2018 FMV floor) where NAV available."
+    },
+    {
+      "id": "G21",
+      "area": "QA/Validation",
+      "gap": "Undefined-function bugs (e.g. gdriveCreateFolder) shipped because visual checks do not exercise every button handler",
+      "severity": "High",
+      "status": "Done v6.4",
+      "solution": "Static audit: strip comments/strings, list all definitions, flag bare calls with no matching definition. Run before every release."
+    }
+  ]
 }</script>
 <script type="text/babel">
 const {useState,useEffect,useCallback,useRef,useMemo,useReducer,Component}=React;
@@ -2890,7 +3388,7 @@ const C={bg:'#04080f',surface:'#080f1c',card:'#0b1525',card2:'#0d1a2e',
 try{window.C=C;}catch{}
 
 /* ── APP / ADMIN CONFIG (v6.0) ──────────────────────────────────────────── */
-const APP_VERSION='6.2';
+const APP_VERSION='6.4';
 // Admins see the Console tab (Feature DB + version + flags + settings).
 // EDIT this list to your own email(s). The first '@' email also works via the
 // admin passphrase below if you ever lose access.
@@ -3679,35 +4177,124 @@ const BUY_CANDIDATES=[
 /* ══════════════════════════════════════════
    SECTION 4 — DATA FETCHING
 ══════════════════════════════════════════ */
-const PLAN_SFX=[' Dir-G',' Dir-IDCW',' Reg-G',' Reg-IDCW',' Direct Growth',' Regular Growth','-G','-IDCW'];
-function getCore(n){let s=n;for(const x of PLAN_SFX)s=s.replace(x,'');return s.trim();}
-const isDirect=n=>/Dir[- ]|Direct/i.test(n);
-const isIDCW=n=>/IDCW|Dividend/i.test(n);
-const AMC_LOCK={absl:['aditya','birla'],hdfc:['hdfc'],icici:['icici'],sbi:['sbi'],nippon:['nippon'],kotak:['kotak'],axis:['axis'],dsp:['dsp'],tata:['tata'],uti:['uti'],hsbc:['hsbc'],invesco:['invesco'],canara:['canara'],bandhan:['bandhan'],edelweiss:['edelweiss'],mirae:['mirae'],motilal:['motilal'],franklin:['franklin'],pgim:['pgim'],sundaram:['sundaram'],navi:['navi'],quant:['quant']};
-const CAT_WORDS=['midcap','smallcap','flexicap','multicap','hybrid','liquid','overnight','gilt','balanced','consumption','pharma','infrastructure','technology','healthcare','banking','focused'];
-function matchScore(mfName,core,direct,idcw){
-  const mf=mfName.toLowerCase(),c=core.toLowerCase();
-  const words=c.split(/[\s\-&,.]+/).filter(w=>w.length>2);
-  if(!words.length)return 0;
-  const fw=words[0];
-  let amcB=0;
-  if(AMC_LOCK[fw]){
-    amcB=AMC_LOCK[fw].every(r=>mf.includes(r))?8:(Object.keys(AMC_LOCK).some(k=>k!==fw&&AMC_LOCK[k].every(r=>mf.includes(r)))?-20:-5);
-  } else if(words.length>=2){
-    const tw=fw+' '+words[1];
-    for(const k in AMC_LOCK){const v=AMC_LOCK[k];if(v.length>=2&&v.every(r=>tw.includes(r))){amcB=v.every(r=>mf.includes(r))?8:(Object.keys(AMC_LOCK).some(k2=>k2!==k&&AMC_LOCK[k2].every(r=>mf.includes(r)))?-20:-5);break;}}
-  }
-  let catP=0;
-  for(const cw of CAT_WORDS){const inMF=mf.includes(cw),inC=c.includes(cw);if(inMF&&!inC)catP-=5;if(inC&&!inMF)catP-=3;}
-  const matched=words.filter(w=>mf.includes(w)).length;
-  if(matched<Math.max(1,words.length-1))return 0;
-  let s=matched+amcB+catP;
-  const mfd=/direct/i.test(mfName),mfr=/regular/i.test(mfName),mfi=/idcw|dividend/i.test(mfName),mfg=/growth/i.test(mfName);
-  if(direct&&mfd)s+=3;if(!direct&&mfr)s+=3;if(direct&&mfr)s-=3;if(!direct&&mfd)s-=3;
-  if(idcw&&mfi)s+=2;if(!idcw&&mfg)s+=2;if(idcw&&mfg)s-=2;if(!idcw&&mfi)s-=2;
+/* ══════════════════════════════════════════
+   SCHEME NAME INTELLIGENCE (v6.4)
+   Expands RTA abbreviations (ABSL, Dir-G, Reg-G…), detects plan & option,
+   gates on AMC, and confirms with purchase-day NAV when uncertain.
+══════════════════════════════════════════ */
+// AMC alias (lowercase) → canonical token string used for matching.
+const AMC_ALIASES={
+  'absl':'aditya birla sun life','abslf':'aditya birla sun life','abmf':'aditya birla sun life','aditya birla':'aditya birla sun life','aditya birla sun life':'aditya birla sun life','aditya birla sunlife':'aditya birla sun life','birla sun life':'aditya birla sun life','birla sunlife':'aditya birla sun life',
+  'icici':'icici prudential','icici pru':'icici prudential','icici prudential':'icici prudential','ipru':'icici prudential',
+  'hdfc':'hdfc',
+  'sbi':'sbi','sbimf':'sbi','state bank':'sbi',
+  'nippon':'nippon india','nippon india':'nippon india','reliance':'nippon india','reliance nippon':'nippon india',
+  'kotak':'kotak mahindra','kotak mahindra':'kotak mahindra',
+  'uti':'uti','axis':'axis','dsp':'dsp','dsp blackrock':'dsp','tata':'tata',
+  'mirae':'mirae asset','mirae asset':'mirae asset',
+  'hsbc':'hsbc','l and t':'hsbc','lnt':'hsbc',
+  'canara':'canara robeco','canara robeco':'canara robeco','crmf':'canara robeco',
+  'lic':'lic','lic mf':'lic',
+  'franklin':'franklin templeton','franklin templeton':'franklin templeton','templeton':'franklin templeton','ftif':'franklin templeton',
+  'bandhan':'bandhan','idfc':'bandhan','idfc mutual':'bandhan',
+  'motilal':'motilal oswal','motilal oswal':'motilal oswal','moamc':'motilal oswal','mosl':'motilal oswal',
+  'ppfas':'parag parikh','parag':'parag parikh','parag parikh':'parag parikh','ppfcf':'parag parikh',
+  'quant':'quant','quantum':'quantum',
+  'whiteoak':'whiteoak capital','whiteoak capital':'whiteoak capital','white oak':'whiteoak capital',
+  'invesco':'invesco','invesco india':'invesco',
+  'pgim':'pgim india','pgim india':'pgim india','dhfl pramerica':'pgim india','pramerica':'pgim india',
+  'edelweiss':'edelweiss','sundaram':'sundaram','principal':'sundaram',
+  'navi':'navi','mahindra':'mahindra manulife','mahindra manulife':'mahindra manulife',
+  'baroda':'baroda bnp paribas','baroda bnp paribas':'baroda bnp paribas','bnp paribas':'baroda bnp paribas','bnp':'baroda bnp paribas',
+  'jm':'jm financial','jm financial':'jm financial',
+  'bajaj':'bajaj finserv','bajaj finserv':'bajaj finserv',
+  'helios':'helios','nj':'nj','samco':'samco','iti':'iti','shriram':'shriram',
+  'taurus':'taurus','groww':'groww','indiabulls':'groww',
+  '360 one':'360 one','iifl':'360 one','old bridge':'old bridge','oldbridge':'old bridge',
+  'unifi':'unifi','zerodha':'zerodha','union':'union','itc':'itc','quantum amc':'quantum',
+};
+const AMC_ALIAS_KEYS=Object.keys(AMC_ALIASES).sort((a,b)=>b.length-a.length);
+function _clean(name){return String(name||'').toLowerCase().replace(/&/g,' and ').replace(/[-_.,/()]/g,' ').replace(/\s+/g,' ').trim();}
+function detectAMC(name){
+  const s=' '+_clean(name)+' ';
+  for(const a of AMC_ALIAS_KEYS){if(s.includes(' '+a+' '))return AMC_ALIASES[a];}
+  return null;
+}
+// Plan: Dir/Dir./DP→Direct, Reg/RP→Regular. No token ⇒ Regular (covers "Growth Growth").
+function detectPlan(name){
+  const s=' '+_clean(name)+' ';
+  if(/\b(direct|dir|dp)\b/.test(s))return 'direct';
+  return 'regular';
+}
+// Option: Growth vs IDCW(Dividend). Default Growth.
+function detectOption(name){
+  const s=' '+_clean(name)+' ';
+  if(/\b(idcw|dividend|div|payout|reinvest|reinvestment|bonus)\b/.test(s)&&!/\bgrowth\b/.test(s))return 'idcw';
+  if(/\b(idcw|dividend)\b/.test(s))return 'idcw';
+  return 'growth';
+}
+const isDirect=n=>detectPlan(n)==='direct';
+const isIDCW=n=>detectOption(n)==='idcw';
+const _PLAN_OPT_WORDS=new Set(['direct','dir','dp','regular','reg','rp','growth','g','gr','idcw','dividend','div','payout','reinvest','reinvestment','bonus','plan','option','mutual','fund','scheme','the','of','and','an','income','distribution','cum','capital','withdrawal']);
+function parseScheme(name){
+  const amc=detectAMC(name),plan=detectPlan(name),option=detectOption(name);
+  const amcWords=new Set((amc||'').split(' '));
+  const content=_clean(name).split(' ').filter(w=>w.length>1&&!_PLAN_OPT_WORDS.has(w)&&!amcWords.has(w));
+  return {amc,plan,option,content};
+}
+// Back-compat: getCore strips plan/option for display & search seeding.
+function getCore(n){
+  const s=String(n||'').replace(/\b(dir|reg)[-. ]?(g|gr|growth|idcw|div|dividend)?\b/gi,' ')
+    .replace(/\b(direct|regular)\b/gi,' ').replace(/\b(growth|idcw|dividend|payout|reinvest(ment)?)\b/gi,' ')
+    .replace(/-(g|idcw)\b/gi,' ').replace(/\s+/g,' ').trim();
+  return s||String(n||'').trim();
+}
+const CAT_WORDS=['midcap','smallcap','largecap','flexicap','multicap','hybrid','liquid','overnight','gilt','balanced','consumption','pharma','infrastructure','infra','technology','digital','healthcare','banking','psu','energy','manufacturing','momentum','quality','value','contra','focused','bluechip','frontline','elss','taxsaver','arbitrage','equity','debt','bond','credit','corporate','dynamic','short','ultra','duration','nifty','sensex','index','gold','silver','commodity','fmcg','auto','metal','realty','financial','services'];
+function matchScore(mfName,parsedOrCore,direct,idcw){
+  // Accepts a parsed object (new) OR the legacy (core,direct,idcw) signature.
+  let p;
+  if(parsedOrCore&&typeof parsedOrCore==='object'&&'content'in parsedOrCore)p=parsedOrCore;
+  else p={amc:detectAMC(String(parsedOrCore||'')),plan:direct?'direct':'regular',option:idcw?'idcw':'growth',content:_clean(String(parsedOrCore||'')).split(' ').filter(w=>w.length>1&&!_PLAN_OPT_WORDS.has(w))};
+  const cand=parseScheme(mfName);
+  if(p.amc&&cand.amc&&p.amc!==cand.amc)return -100; // AMC gate
+  let s=0;
+  if(p.amc&&cand.amc===p.amc)s+=6;
+  const candSet=new Set(cand.content);
+  let matched=0;for(const w of p.content)if(candSet.has(w))matched++;
+  s+=matched*2;
+  if(matched<Math.max(1,Math.ceil(p.content.length*0.5)))s-=4;
+  for(const cw of CAT_WORDS){const a=candSet.has(cw),b=p.content.includes(cw);if(a&&!b)s-=2;if(b&&!a)s-=1;}
+  if(p.plan==='direct'){s+=cand.plan==='direct'?4:-4;}else{s+=cand.plan==='regular'?4:-4;}
+  if(p.option==='idcw'){s+=cand.option==='idcw'?3:-3;}else{s+=cand.option==='growth'?3:-3;}
   return s;
 }
+// NAV cross-check: confirm a candidate by comparing its NAV on the purchase
+// date to the recorded transaction price. The strongest disambiguator.
+const _navVerifyCache={};
+async function _navHist(code){
+  if(_navVerifyCache[code])return _navVerifyCache[code];
+  try{
+    const res=await fetch('https://api.mfapi.in/mf/'+code,{signal:AbortSignal.timeout(8000)});
+    const j=await res.json();
+    const arr=((j&&j.data)?j.data:[]).map(r=>{const x=r.date.split('-');return{d:new Date(+x[2],+x[1]-1,+x[0]),v:parseFloat(r.nav)};}).filter(z=>z.v>0).sort((a,b)=>a.d-b.d);
+    _navVerifyCache[code]=arr;return arr;
+  }catch{_navVerifyCache[code]=[];return [];}
+}
+async function verifyByNav(code,date,price){
+  if(!price||price<=0||!date)return null;
+  const arr=await _navHist(code);if(!arr.length)return null;
+  const t=date.getTime();let best=null,bd=Infinity;
+  for(const pt of arr){const dd=Math.abs(pt.d.getTime()-t);if(dd<bd){bd=dd;best=pt;}}
+  if(!best||bd>12*86400000)return null;
+  const diff=Math.abs(best.v-price)/price;
+  return {ok:diff<=0.03,diff,nav:best.v};
+}
 async function fetchAMFIMaster(){
+  // G04: serve from a local 24h cache first (faster, works offline once warmed).
+  try{
+    const c=JSON.parse(_store.get('mfa_amfi_master')||'null');
+    if(c&&c.t&&(Date.now()-c.t<86400000)&&c.m&&Object.keys(c.m).length>500)return c.m;
+  }catch{}
   const t='https://www.amfiindia.com/spages/NAVAll.txt';
   for(const p of['https://api.allorigins.win/raw?url=','https://corsproxy.io/?']){
     try{
@@ -3721,34 +4308,57 @@ async function fetchAMFIMaster(){
         if(i1.startsWith('INF'))m[i1]={code,name};
         if(i2.startsWith('INF'))m[i2]={code,name};
       }
+      try{_store.set('mfa_amfi_master',JSON.stringify({t:Date.now(),m}));}catch{}
       return m;
     }catch{}
   }
+  // network failed → fall back to a stale cache if we have one
+  try{const c=JSON.parse(_store.get('mfa_amfi_master')||'null');if(c&&c.m)return c.m;}catch{}
   return null;
 }
 async function fetchMfapiList(){
   const res=await fetch('https://api.mfapi.in/mf',{signal:AbortSignal.timeout(15000)});
   return res.ok?(await res.json()):[];
 }
-async function autoMapScheme(name,isin,isinMap,mfList){
-  if(isin?.length>=11&&isinMap){const h=isinMap[isin];if(h)return{code:h.code,label:h.name,method:'ISIN'};}
-  if(mfList?.length){
-    const core=getCore(name),d=isDirect(name),i=isIDCW(name);
-    let best=null,bs=0;
-    for(const s of mfList){const sc=matchScore(s.schemeName,core,d,i);if(sc>bs){bs=sc;best=s;}}
-    if(best&&bs>=2)return{code:String(best.schemeCode),label:best.schemeName,method:'name'};
-  }
+async function autoMapScheme(name,isin,isinMap,mfList,sample){
+  if(isin?.length>=11&&isinMap){const h=isinMap[isin];if(h)return{code:h.code,label:h.name,method:'ISIN',confidence:'high'};}
+  // PERSISTENT OVERRIDES (G06): a previous manual fix wins over fuzzy matching.
   try{
-    const _sq=getCore(name);const _sq2=_sq.toLowerCase().startsWith('absl ')?'Aditya Birla Sun Life '+_sq.slice(5):_sq;
-    const res=await fetch("https://api.mfapi.in/mf/search?q="+encodeURIComponent(_sq2.slice(0,50)),{signal:AbortSignal.timeout(6000)});
-    const data=await res.json();
-    if(data?.length){
-      const core=getCore(name),d=isDirect(name),i=isIDCW(name);
-      const best=[...data].sort((a,b)=>matchScore(b.schemeName,core,d,i)-matchScore(a.schemeName,core,d,i))[0];
-      if(matchScore(best.schemeName,core,d,i)>0)return{code:String(best.schemeCode),label:best.schemeName,method:'search'};
+    const ov=JSON.parse(_store.get('mfa_map_overrides')||'{}');
+    if(isin&&ov['isin::'+isin])return{...ov['isin::'+isin],method:'override-isin',label:ov['isin::'+isin].name,confidence:'high'};
+    const byName=ov['name::'+_normH(name)];
+    if(byName)return{code:byName.code,label:byName.name,method:'override-name',confidence:'high'};
+  }catch(e){}
+  const p=parseScheme(name);
+  // Candidate pool: local AMFI master if available, else remote search seeded with expanded AMC.
+  let pool=mfList&&mfList.length?mfList:[];
+  if(!pool.length){
+    try{
+      const seed=((p.amc?p.amc+' ':'')+getCore(name)).slice(0,50);
+      const res=await fetch("https://api.mfapi.in/mf/search?q="+encodeURIComponent(seed),{signal:AbortSignal.timeout(6000)});
+      const data=await res.json();
+      pool=(data||[]).map(x=>({schemeName:x.schemeName,schemeCode:x.schemeCode}));
+    }catch{}
+  }
+  if(!pool.length)return null;
+  const ranked=pool.map(s=>({s,sc:matchScore(s.schemeName,p)})).filter(x=>x.sc>0).sort((a,b)=>b.sc-a.sc);
+  if(!ranked.length)return null;
+  const top=ranked[0],second=ranked[1];
+  const clear=!second||(top.sc-second.sc>=4);
+  // NAV cross-check against the purchase-day price — confirms or disambiguates.
+  if(sample&&sample.price>0){
+    let bestV=null;
+    for(const c of ranked.slice(0,4)){
+      const v=await verifyByNav(String(c.s.schemeCode),sample.date,sample.price);
+      if(v&&v.ok){bestV={c,diff:v.diff};break;}
+      if(v&&(!bestV||v.diff<bestV.diff))bestV={c,diff:v.diff};
     }
-  }catch{}
-  return null;
+    if(bestV&&bestV.diff<=0.03)return{code:String(bestV.c.s.schemeCode),label:bestV.c.s.schemeName,method:'nav-verified',confidence:'high'};
+  }
+  if(clear)return{code:String(top.s.schemeCode),label:top.s.schemeName,method:'name',confidence:top.sc>=8?'high':'medium'};
+  // Ambiguous and not NAV-confirmed → best guess, flagged low with alternatives for the UI.
+  return{code:String(top.s.schemeCode),label:top.s.schemeName,method:'name',confidence:'low',
+    alternatives:ranked.slice(0,4).map(r=>({code:String(r.s.schemeCode),name:r.s.schemeName,score:r.sc}))};
 }
 
 // Fetch Yahoo Finance data via proxy
@@ -3828,12 +4438,12 @@ function parseFlatRTA(rows,srcName){
   const H=rows[hr].map(_normH);
   // priority match: try each candidate substring across ALL headers in order
   const find=(...subs)=>{for(const x of subs){const i=H.findIndex(h=>h.includes(x));if(i>=0)return i;}return -1;};
-  const cD=find('trade date','transaction date','txn date','value date','posted date','date');
-  const cS=find('scheme name','scheme description','scheme','fund name');
-  const cT=find('transaction type','transaction description','tran type','txn type','description','type');
-  const cA=find('amount','amt');
-  const cU=find('units','unit','quantity','qty');
-  const cPr=find('nav','purchase price','price','rate');
+  const cD=find('trade date','transaction date','txn date','value date','posted date','order date','date');
+  const cS=find('scheme name','scheme description','scheme','fund name','fund','security name','instrument');
+  const cT=find('transaction type','transaction description','tran type','txn type','order type','order','buy/sell','side','nature','description','type');
+  const cA=find('amount','amount (inr)','net amount','gross amount','traded value','value','amt');
+  const cU=find('units','unit','no. of units','quantity','qty');
+  const cPr=find('nav','purchase price','price/nav','price','rate','avg price','traded price');
   const cF=find('folio number','folio');
   const cPc=find('product code','product','plan');
   const cI=find('schemeisin','isin');
@@ -3857,6 +4467,17 @@ function parseFlatRTA(rows,srcName){
       amount:Math.abs(rawA),mv:0,folioId:folio,source:'import'});
   }
   if(!out.length)throw new Error('No financial transactions found — the file only contained non-transaction rows (e.g. address/nominee changes). Please check it is a transaction statement.');
+  // These RTA dumps have NO running-balance column, but the engine treats import
+  // rows' balUnits as the authoritative cumulative balance. So compute it here:
+  // per (scheme+folio), accumulate signed unit movements in date order.
+  const _run={};
+  [...out].sort((a,b)=>a.date-b.date).forEach(t=>{
+    const k=t.scheme+'||'+t.folioId;
+    const sign=unitSign(t.txType); // +1 buy/reinvest/switch-in · -1 sell/switch-out · 0 cash div
+    _run[k]=(_run[k]||0)+sign*(t.units||0);
+    if(_run[k]<0.0001)_run[k]=0; // clamp float dust / full redemptions
+    t.balUnits=_run[k];
+  });
   out._skipped=skipped;
   return out;
 }
@@ -4113,10 +4734,48 @@ function downloadChartPNG(svgEl,filename,bg='#04080f'){
   img.onload=()=>{ctx.drawImage(img,0,0);const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download=filename;a.click();};
   img.src='data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(svgStr)));
 }
-
-/* ══════════════════════════════════════════
-   SECTION 6 — SHARED UI COMPONENTS
-══════════════════════════════════════════ */
+// JPG export (white-ish bg baked in) — shares the SVG→canvas path.
+function downloadChartJPG(svgEl,filename,bg='#04080f'){
+  if(!svgEl)return;
+  const vb=svgEl.getAttribute('viewBox')?.split(' ')||['0','0','800','400'];
+  const W=+vb[2]||800,H=+vb[3]||400;
+  const canvas=document.createElement('canvas');canvas.width=W*2;canvas.height=H*2;
+  const ctx=canvas.getContext('2d');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W*2,H*2);
+  const clone=svgEl.cloneNode(true);
+  clone.setAttribute('xmlns','http://www.w3.org/2000/svg');
+  clone.setAttribute('width',W*2);clone.setAttribute('height',H*2);
+  const svgStr=new XMLSerializer().serializeToString(clone);
+  const img=new Image();
+  img.onload=()=>{ctx.drawImage(img,0,0);const a=document.createElement('a');a.href=canvas.toDataURL('image/jpeg',0.95);a.download=filename;a.click();};
+  img.src='data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(svgStr)));
+}
+// Real .xlsx export of any tabular data (uses the bundled SheetJS).
+function downloadXLSX(rows,headers,filename,sheetName='Sheet1'){
+  try{
+    const aoa=[headers,...rows.map(r=>Array.isArray(r)?r:headers.map((_,i)=>r[headers[i]]))];
+    const ws=XLSX.utils.aoa_to_sheet(aoa);
+    ws['!cols']=headers.map(h=>({wch:Math.min(48,Math.max(10,String(h).length+4))}));
+    const wb=XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb,ws,sheetName.slice(0,31));
+    XLSX.writeFile(wb,filename.endsWith('.xlsx')?filename:filename+'.xlsx');
+  }catch(e){console.warn('xlsx export failed',e);downloadCSV(rows,headers,(filename.replace(/\.xlsx$/,''))+'.csv');}
+}
+// Compact export toolbar — drop next to any chart (svgRef) and/or data table.
+function ExportBar({svgRef,getData,base='export',small=false}){
+  const pad=small?'2px 7px':'3px 9px';const fs=small?9:10;
+  const btn={padding:pad,background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:4,fontSize:fs,cursor:'pointer'};
+  return(
+    <span style={{display:'inline-flex',gap:5,alignItems:'center'}}>
+      {svgRef&&<>
+        <button className="btn" style={btn} title="Download SVG" onClick={()=>downloadSVG(svgRef.current,base+'.svg')}>SVG</button>
+        <button className="btn" style={btn} title="Download PNG" onClick={()=>downloadChartPNG(svgRef.current,base+'.png')}>PNG</button>
+        <button className="btn" style={btn} title="Download JPG" onClick={()=>downloadChartJPG(svgRef.current,base+'.jpg')}>JPG</button>
+      </>}
+      {getData&&<button className="btn" style={btn} title="Download Excel" onClick={()=>{const d=getData();if(d&&d.rows&&d.headers)downloadXLSX(d.rows,d.headers,base+'.xlsx',d.sheet||base);}}>Excel</button>}
+    </span>
+  );
+}
 
 // ── Period Picker ──
 function PeriodPicker({value,onChange,minDate,maxDate}){
@@ -4307,6 +4966,7 @@ function LineChart({series,title,subtitle,width=800,height=320,showLegend=true,c
   const [gridCount,setGridCount]=useState(6);
   const [mode,setMode]=useState('pan'); // 'pan'|'rect'
   const dragRef=useRef({on:false,x0:0,z0:[0,100],rx0:0,rx1:0});
+  const touchRef=useRef({mode:null,d0:0,z0:[0,100],cx:0}); // F129 touch (must be before any early return)
   const [rect,setRect]=useState(null);
   const PL=70,PR=navSeries?.length?58:14,PT=12,PB=36;
 
@@ -4421,7 +5081,6 @@ function LineChart({series,title,subtitle,width=800,height=320,showLegend=true,c
   };
 
   // F129: touch — single finger = tooltip+pan, two fingers = pinch zoom
-  const touchRef=useRef({mode:null,d0:0,z0:[0,100],cx:0});
   const tDist=(t)=>Math.abs(t[0].clientX-t[1].clientX);
   const tMid=(t)=>(t[0].clientX+t[1].clientX)/2;
   const onTStart=e=>{
@@ -4482,6 +5141,15 @@ function LineChart({series,title,subtitle,width=800,height=320,showLegend=true,c
               style={{padding:'3px 8px',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:4,fontSize:10}}>↓SVG</button>
             <button className="btn" onClick={()=>downloadChartPNG(svgRef.current,`${chartId}.png`)}
               style={{padding:'3px 8px',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:4,fontSize:10}}>↓PNG</button>
+            <button className="btn" onClick={()=>downloadChartJPG(svgRef.current,`${chartId}.jpg`)}
+              style={{padding:'3px 8px',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:4,fontSize:10}}>↓JPG</button>
+            <button className="btn" onClick={()=>{
+                const hdr=['Series','Date','Value'];const out=[];
+                (series||[]).forEach(s=>(s.data||[]).forEach(pt=>out.push([s.label||s.name||'series',fmtDM(new Date(pt.t||pt.x||pt.date)),pt.v??pt.y])));
+                if(navSeries)navSeries.forEach(pt=>out.push([navSeriesLabel,fmtDM(new Date(pt.t||pt.x||pt.date)),pt.v??pt.y]));
+                downloadXLSX(out,hdr,`${chartId}.xlsx`,chartId);
+              }}
+              style={{padding:'3px 8px',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:4,fontSize:10}}>↓Excel</button>
           </div>
         </div>
       )}
@@ -4602,6 +5270,11 @@ function DataTable({columns,rows,title,filename='table',maxHeight=420,summaryRow
     const data=filtered.map(r=>columns.map(c=>r[c.key]));
     downloadCSV(data,hdrs,`${filename}.csv`);
   };
+  const doDownloadXLSX=()=>{
+    const hdrs=columns.map(c=>c.label);
+    const data=filtered.map(r=>columns.map(c=>{const v=r[c.key];return v==null?'':v;}));
+    downloadXLSX(data,hdrs,`${filename}.xlsx`,title||filename);
+  };
 
   return(
     <div>
@@ -4615,6 +5288,8 @@ function DataTable({columns,rows,title,filename='table',maxHeight=420,summaryRow
             </button>
             <button className="btn" onClick={doDownload}
               style={{padding:'3px 10px',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:5,fontSize:10}}>↓ CSV</button>
+            <button className="btn" onClick={doDownloadXLSX}
+              style={{padding:'3px 10px',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:5,fontSize:10}}>↓ Excel</button>
           </div>
         </div>
       )}
@@ -4993,6 +5668,8 @@ function XIRRHistoryChart({sortedTxns,navByScheme,enabledSet,minDate,period}){
             style={{padding:'3px 8px',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:5,fontSize:10}}>↓ SVG</button>
           <button className="btn" onClick={()=>downloadChartPNG(svgRef.current,'xirr-history.png')}
             style={{padding:'3px 8px',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:5,fontSize:10}}>↓ PNG</button>
+          <button className="btn" onClick={()=>downloadChartJPG(svgRef.current,'xirr-history.jpg')}
+            style={{padding:'3px 8px',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:5,fontSize:10}}>↓ JPG</button>
           <button className="btn" onClick={dlCSV}
             style={{padding:'3px 8px',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:5,fontSize:10}}>↓ CSV</button>
           <button className="btn" onClick={compute}
@@ -5208,7 +5885,6 @@ function DashboardPage({sortedTxns,navByScheme,enabled,period,minDate,benchmarks
   const today=useMemo(()=>{const d=new Date();d.setHours(0,0,0,0);return d;},[]);
   const {start,end}=useMemo(()=>getPeriodDates(period,minDate,today),[period,minDate,today]);
   const enabledSet=enabled;
-  const navLoading=useMemo(()=>enabledSet.size>0&&![...enabledSet].some(s=>navByScheme[s]?.length>0),[enabledSet,navByScheme]);
 
   // Portfolio chart data
   const chartSeries=useMemo(()=>{
@@ -5343,7 +6019,7 @@ function DashboardPage({sortedTxns,navByScheme,enabled,period,minDate,benchmarks
       {/* Hero stats */}
       <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(145px,1fr))',gap:10,marginBottom:12}}>
         {[
-          {l:'Portfolio Value',v:navLoading?'Fetching NAV…':FMT(heroStats.pv),c:navLoading?C.amber:C.accent,sub:navLoading?'Retrieving latest prices — please wait':navAsOf(navByScheme)||'Current market value'},
+          {l:'Portfolio Value',v:FMT(heroStats.pv),c:C.accent,sub:navAsOf(navByScheme)||'Current market value'},
           {l:'Gross Invested',v:FMT(heroStats.invested),c:C.text,sub:'Total purchases'},
           {l:'Redeemed',v:heroStats.redeemed>0?FMT(heroStats.redeemed):'—',c:C.muted,sub:'Total withdrawals'},
           {l:'Net Deployed',v:FMT(heroStats.net),c:heroStats.net>=0?C.text:C.amber,sub:heroStats.net<0?'More withdrawn than invested':'Gross less withdrawals'},
@@ -6188,6 +6864,15 @@ function SettingsPage({allTxns,setAllTxns,sm,setSm,navByScheme,setNavByScheme,be
     // Clear old (possibly wrong) NAV immediately so pages don't show stale values
     setNavByScheme(p=>{const n={...p};delete n[scheme];return n;});
     setSm(p=>({...p,[scheme]:{...p[scheme],amfiCode:code,amfiName:name,status:'mapped',method:'manual'}}));
+    // PERSIST override (G06): remember this manual mapping keyed by scheme name + ISIN
+    // so future imports of the same fund auto-apply it. Survives across portfolios.
+    try{
+      const isin=(sm[scheme]&&sm[scheme].isin)||'';
+      const ov=JSON.parse(_store.get('mfa_map_overrides')||'{}');
+      ov['name::'+_normH(scheme)]={code,name};
+      if(isin)ov['isin::'+isin]={code,name};
+      _store.set('mfa_map_overrides',JSON.stringify(ov));
+    }catch(e){}
     setSmEditRow(null);setSmEditQ('');setSmEditRes([]);
     setSmEditFetching(scheme);
     fetch("https://api.mfapi.in/mf/"+code,{signal:AbortSignal.timeout(20000)})
@@ -6438,24 +7123,15 @@ function SettingsPage({allTxns,setAllTxns,sm,setSm,navByScheme,setNavByScheme,be
         const newTxns=parseAnyFile(ev.target.result,f.name);
         if(!newTxns.length){alert('No valid transactions found in file.');return;}
         setAllTxns(prev=>{
-          const existKeys=new Set(prev.map(t=>
-            toISO(t.date instanceof Date?t.date:new Date(t.date))+'|'+t.scheme+'|'+t.txType+'|'+Math.round(Math.abs(t.amount||0))
-          ));
-          const added=newTxns.filter(t=>{
-            const k=toISO(t.date instanceof Date?t.date:new Date(t.date))+'|'+t.scheme+'|'+t.txType+'|'+Math.round(Math.abs(t.amount||0));
-            return!existKeys.has(k);
-          });
+          const mkKey=t=>toISO(t.date instanceof Date?t.date:new Date(t.date))+'|'+(t.isin||t.scheme)+'|'+(t.folioId||'')+'|'+t.txType+'|'+Math.round(Math.abs(t.amount||0))+'|'+Math.round((t.units||0)*1000);
+          const existKeys=new Set(prev.map(mkKey));
+          const added=newTxns.filter(t=>!existKeys.has(mkKey(t)));
           const merged=[...prev,...added].sort((a,b)=>{
             const at=a.date instanceof Date?a.date.getTime():new Date(a.date).getTime();
             const bt=b.date instanceof Date?b.date.getTime():new Date(b.date).getTime();
             return at-bt;
           });
           alert(added.length+' new transactions added ('+newTxns.length+' in file, '+(newTxns.length-added.length)+' duplicates skipped).');
-              const ms=new Set(merged.map(t=>t.scheme));
-              setEnabled(p=>new Set([...p,...ms]));
-              const ns=[...ms].filter(s=>!navByScheme[s]&&sm[s]?.amfiCode);
-              ns.forEach(s=>fetch('https://api.mfapi.in/mf/'+sm[s].amfiCode,{signal:AbortSignal.timeout(15000)})
-                .then(r=>r.json()).then(j=>{if(j?.data?.length)setNavByScheme(p=>({...p,[s]:buildNav(j.data)}));}).catch(()=>{}));
           return merged;
         });
       }catch(err){alert('Import error: '+err.message);}
@@ -6925,37 +7601,17 @@ function SettingsPage({allTxns,setAllTxns,sm,setSm,navByScheme,setNavByScheme,be
         
         <GoogleDrivePanel
           currentUserId={currentUserId||'default'}
-          getExportData={()=>{
-            const navSerial=Object.fromEntries(Object.entries(navByScheme).map(([k,a])=>
-              [k,a.map(p=>({date:toISO(p.d instanceof Date?p.d:new Date(p.d)),nav:Number(p.v.toFixed(4))}))]));
-            return{version:'6.2',exportDate:new Date().toISOString(),
-              transactions:allTxns.map(t=>({...t,date:t.date instanceof Date?toISO(t.date):t.date})),
-              schemeMapping:sm,benchmarks,country,
-              displayCurrency,displayUnit,displayFmt,returnBasis,
-              navByScheme:navSerial,enabled:[...enabledSet]};
-          }}
+          getExportData={()=>({
+            version:'6.0',exportDate:new Date().toISOString(),
+            transactions:allTxns.map(t=>({...t,date:t.date instanceof Date?toISO(t.date):t.date})),
+            schemeMapping:sm,benchmarks,country,
+            displayCurrency,displayUnit,displayFmt,returnBasis
+          })}
           onRestoreData={(state)=>{
             if(!state||!state.transactions)return;
-            const txns=state.transactions
-              .map(t=>({...t,date:fromISO(t.date)||new Date(t.date)}))
-              .sort((a,b)=>(a.date instanceof Date?a.date:new Date(a.date))-(b.date instanceof Date?b.date:new Date(b.date)));
-            txns.forEach((t,i)=>{if(!t.folioId)t.folioId=String(i);});
-            setAllTxns(txns);
-            const smR=state.schemeMapping||{}; setSm(smR);
-            if(state.benchmarks?.length)setBenchmarks(state.benchmarks);
-            if(state.displayCurrency)setDisplayCurrency(state.displayCurrency);
-            if(state.returnBasis)setReturnBasis(state.returnBasis);
-            const nb={};
-            if(state.navByScheme){
-              for(const[nm,arr]of Object.entries(state.navByScheme)){
-                nb[nm]=arr.map(p=>({d:fromISO(p.date)||new Date(p.date),v:parseFloat(p.nav)})).filter(x=>x.d&&x.v>0);
-              }
-            }
-            setNavByScheme(nb);
-            const allSchemes=[...new Set(txns.map(t=>t.scheme))];
-            setEnabled(state.enabled?.length?new Set(state.enabled):new Set(allSchemes));
-            setAppState('app');
-            setTimeout(()=>fetchNavBackground(nb,smR),100);
+            setAllTxns(state.transactions.map(t=>({...t,date:fromISO(t.date)||new Date(t.date)})).sort((a,b)=>a.date-b.date));
+            if(state.schemeMapping)setSm(state.schemeMapping);
+            if(state.benchmarks)setBenchmarks(state.benchmarks);
           }}/>
       </CollapsibleCard>
 
@@ -7633,6 +8289,7 @@ function SetupFlow({onComplete,onImportJSON,onError}){
   const [sm,setSm]=useState({});
   const [err,setErr]=useState('');
   const [okMsg,setOkMsg]=useState('');
+  const [report,setReport]=useState(null);
   const [fname,setFname]=useState('');
   const [loadStatus,setLoadStatus]=useState('idle');
   const [loadMsg,setLoadMsg]=useState('');
@@ -7665,7 +8322,15 @@ function SetupFlow({onComplete,onImportJSON,onError}){
           else if(!map[t.scheme].isin&&t.isin)map[t.scheme].isin=t.isin;
         }
         const skipped=parsed._skipped||0;
-        setOkMsg(`Imported ${sorted.length} transactions across ${Object.keys(map).length} schemes${skipped?` · skipped ${skipped} non-transaction rows (address/nominee/mandate changes)`:''}.`);
+        // G19: structured post-import validation report
+        const byType={};let invAmt=0,redAmt=0;
+        for(const t of sorted){const c=clf(t.txType);byType[t.txType]=(byType[t.txType]||0)+1;if(c==='buy'||c==='switchin')invAmt+=Math.abs(t.amount||0);else if(c==='sell'||c==='switchout')redAmt+=Math.abs(t.amount||0);}
+        const dmin=sorted[0]?.date,dmax=sorted[sorted.length-1]?.date;
+        const noPrice=sorted.filter(t=>{const c=clf(t.txType);return(c==='buy'||c==='sell')&&!(t.price>0)&&!(t.units>0&&t.amount>0);}).length;
+        setReport({txns:sorted.length,schemes:Object.keys(map).length,skipped,byType,
+          invAmt,redAmt,noPrice,
+          range:(dmin&&dmax)?fmtDL(dmin)+' → '+fmtDL(dmax):'—'});
+        setOkMsg(`Imported ${sorted.length} transactions across ${Object.keys(map).length} schemes${skipped?` · skipped ${skipped} non-transaction rows`:''}.`);
         setSm(map);
         setSearchQ(Object.fromEntries(Object.entries(map).map(([k])=>[k,getCore(k)])));
         didMap.current=false;setStep('review');
@@ -7685,11 +8350,19 @@ function SetupFlow({onComplete,onImportJSON,onError}){
       try{setLoadMsg('Fetching scheme list…');mfList=await fetchMfapiList();mfListRef.current=mfList;}catch{}
       if(!isinMap&&!mfList){setLoadStatus('error');setLoadMsg('Network error — use manual search.');return;}
       const schemes=Object.keys(sm);const updated={...sm};
+      // Build a representative purchase (date + price) per scheme for NAV cross-check.
+      const sampleByScheme={};
+      for(const t of (txns||[])){
+        const c=clf(t.txType);if(c!=='buy'&&c!=='switchin')continue;
+        const price=t.price||((t.units>0)?Math.abs(t.amount)/t.units:0);
+        if(price>0&&!sampleByScheme[t.scheme])sampleByScheme[t.scheme]={date:t.date instanceof Date?t.date:new Date(t.date),price};
+      }
       for(let i=0;i<schemes.length;i++){
         const name=schemes[i];const info=updated[name];
         setLoadMsg(`Mapping ${i+1}/${schemes.length}: ${name}`);
-        const result=await autoMapScheme(name,info.isin,isinMap,mfList);
-        updated[name]=result?{...info,...result,amfiCode:result.code,amfiName:result.label,status:'mapped'}:{...info,status:'failed'};
+        const result=await autoMapScheme(name,info.isin,isinMap,mfList,sampleByScheme[name]);
+        updated[name]=result?{...info,...result,amfiCode:result.code,amfiName:result.label,status:'mapped',
+          confidence:result.confidence,matchMethod:result.method,alternatives:result.alternatives||null}:{...info,status:'failed'};
         setSm({...updated});
         await new Promise(r=>setTimeout(r,0));
       }
@@ -7834,6 +8507,25 @@ function SetupFlow({onComplete,onImportJSON,onError}){
           </div>
         </div>
         {failedCnt>0&&loadStatus==='done'&&<div style={{marginBottom:10,padding:'8px 14px',background:'#0e0a00',border:`1px solid ${C.amber}33`,borderRadius:7,fontSize:11,color:C.amber}}>⚠ {failedCnt} schemes not found — search manually or proceed.</div>}
+        {report&&(
+          <div style={{marginBottom:12,padding:'11px 14px',background:'#070d1a',border:`1px solid ${C.border}`,borderRadius:9}}>
+            <div style={{fontSize:11,fontWeight:700,color:C.text,marginBottom:7,fontFamily:'Syne'}}>Import validation</div>
+            <div style={{display:'flex',gap:14,flexWrap:'wrap',fontSize:10,color:C.muted}}>
+              <span><b style={{color:C.text}}>{report.txns}</b> transactions</span>
+              <span><b style={{color:C.text}}>{report.schemes}</b> schemes</span>
+              <span>Range: <b style={{color:C.text}}>{report.range}</b></span>
+              <span>Invested: <b style={{color:C.green}}>{INR(report.invAmt)}</b></span>
+              <span>Redeemed: <b style={{color:C.amber}}>{INR(report.redAmt)}</b></span>
+              {report.skipped>0&&<span><b style={{color:C.muted2}}>{report.skipped}</b> admin rows skipped</span>}
+              {report.noPrice>0&&<span style={{color:C.amber}}>⚠ {report.noPrice} buys/sells missing price</span>}
+            </div>
+            <div style={{display:'flex',gap:8,flexWrap:'wrap',marginTop:7}}>
+              {Object.entries(report.byType).sort((a,b)=>b[1]-a[1]).map(([t,n])=>(
+                <span key={t} style={{fontSize:9,fontFamily:'Space Mono',padding:'2px 7px',borderRadius:10,background:C.surface,border:`1px solid ${C.border}`,color:C.muted}}>{t}: {n}</span>
+              ))}
+            </div>
+          </div>
+        )}
         {Object.entries(sm).map(([name,info])=>{
           const isOpen=openSearch===name,res=searchRes[name]||[],q=searchQ[name]||getCore(name),ok=!!info.amfiCode;
           return(
@@ -7845,6 +8537,12 @@ function SetupFlow({onComplete,onImportJSON,onError}){
                     <span style={{fontSize:12,color:C.text,fontWeight:500}}>{name}</span>
                     {info.isin&&<span style={{fontFamily:'Space Mono',fontSize:9,color:C.muted}}>{info.isin}</span>}
                     {ok&&<span style={{fontFamily:'Space Mono',fontSize:9,color:C.green}}>✓ {info.amfiCode}</span>}
+                    {ok&&info.confidence&&<span style={{fontSize:8,fontFamily:'Space Mono',padding:'1px 6px',borderRadius:9,
+                      background:(info.confidence==='high'?C.green:info.confidence==='medium'?C.amber:C.red)+'1e',
+                      color:info.confidence==='high'?C.green:info.confidence==='medium'?C.amber:C.red}}
+                      title={'Match method: '+(info.matchMethod||'name')}>
+                      {info.matchMethod==='ISIN'?'ISIN':info.matchMethod==='nav-verified'?'NAV✓':info.matchMethod==='override-isin'||info.matchMethod==='override-name'?'saved':info.confidence}
+                    </span>}
                     {info.status==='failed'&&!ok&&<span style={{fontSize:10,color:C.red}}>✗ not found</span>}
                   </div>
                   {ok&&info.amfiName&&<div style={{fontSize:10,color:C.muted,marginBottom:4,fontStyle:'italic'}}>{info.amfiName}</div>}
@@ -8276,8 +8974,16 @@ function NpvPage({sortedTxns,navByScheme,enabled,benchmarks,setBenchmarks,benchm
 ══════════════════════════════════════════ */
 const HELP_CONTENT={
   faq:[
+    {q:"How do I combine multiple portfolios and compare a fund across them?",
+     a:"Open the Compare page. It loads every portfolio saved on this device and shows: (1) a CONSOLIDATED total combining all of them, and (2) a per-scheme matrix giving each fund's value in every portfolio plus the combined total — funds held in more than one portfolio are flagged. Both export to Excel."},
+    {q:"How do I export a chart or table?",
+     a:"Every chart has SVG / PNG / JPG buttons plus an Excel button for its underlying data. Every data table has CSV and Excel buttons. Files download straight to your device — nothing is uploaded."},
+    {q:"Why was balance/portfolio value showing 0, and is it fixed?",
+     a:"A v6.2 import regression left the per-folio running balance at 0, so value computed to 0. v6.3 fixes this — the parser rebuilds the cumulative balance per scheme+folio from the transaction history. Re-import your statement to see correct holdings."},
+    {q:"If I correct a scheme mapping, will it stick next time?",
+     a:"Yes. From v6.3 a manual mapping fix is remembered (keyed by ISIN and fund name) and auto-applied to future imports of the same fund, across portfolios. ISIN is matched first for accuracy."},
     {q:"Why is my portfolio value different from CAMS/AMFI?",
-     a:"MF Advisor fetches NAV from mfapi.in (AMFI-sourced). There may be a 1-2 day lag for NAV updates. Also, your CAMS statement may include funds across AMCs, while MF Advisor only values funds whose NAV it can fetch. Check Settings → Portfolio Diagnostic to see per-folio balances and identify any missing NAV."},
+     a:"MF Advisor fetches NAV from mfapi.in (AMFI-sourced). There may be a 1-2 day lag for NAV updates. Also, your CAMS statement may include funds across AMCs, while MF Advisor only values funds whose NAV could be mapped — check the Scheme Mapping section in Settings for any unmapped funds."},
     {q:"Why is XIRR showing as N/A or a very large number?",
      a:"XIRR needs at least one buy and one sell/valuation cash flow. If you have only purchases with no redemptions, XIRR uses the current portfolio value as the terminal cash flow. Ensure NAV data is fresh. Very recent investments (< 7 days) may show extreme XIRR figures as XIRR is highly sensitive to short holding periods."},
     {q:"How are units calculated for CAMS-imported transactions?",
@@ -8327,6 +9033,23 @@ const HELP_CONTENT={
 {title:"Glossary of Terms",content:"XIRR: annualised return for irregular cash flows\nCAGR: (End/Start)^(1/years) − 1\nSharpe: (Return − Risk-Free) / Std Dev. >1 good, >2 excellent\nSortino: like Sharpe but uses downside deviation only\nBeta: sensitivity to Nifty 50. Beta=1 moves with market\nAlpha: excess return vs benchmark after Beta adjustment. Positive = manager adds value\nMax Drawdown: largest peak-to-trough NAV decline\nNPV: present value of all cash flows at a hurdle rate\nUnrealised Gain: Current Value − Net Invested (open positions)\nRealised Gain: proceeds from redemptions minus FIFO cost basis\nLTCG: equity MF units held >12 months, taxed 10% above ₹1.25L\nSTCG: equity MF units held ≤12 months, taxed at 20%"},
   ],
   changelog:[
+    {version:'6.4',date:'2026-06',title:'Smart scheme mapping · Consolidation · Validation',changes:[
+      'Scheme mapping overhaul: understands shorthands — Dir-G→Direct Growth, Reg-G→Regular Growth, ABSL→Aditya Birla Sun Life, IDFC→Bandhan, and plans without a token default to Regular ("Growth Growth").',
+      'AMC-gated matching never maps to the wrong fund house; when two candidates are close, the purchase-day NAV is compared to the recorded price to pick the right scheme. Each row shows a confidence / match-method badge.',
+      'Global consolidation: a This / All-combined toggle in the header merges every saved portfolio into ALL charts, tables and reports (deduped). Editing still applies to the active portfolio.',
+      'Post-import validation report: counts, types, date range, invested/redeemed totals, skipped admin rows and a missing-price warning.',
+      'Broker statements (Groww / Kuvera / MFU / Zerodha) header aliases; stronger re-import de-duplication (ISIN+folio+date+amount+units).',
+      '24-hour AMFI master cache (faster, offline-capable); equity LTCG grandfathering (31-Jan-2018); Google Client ID configurable for self-hosting.',
+    ]},
+    {version:'6.3',date:'2026-06',title:'Critical import fixes · Multi-portfolio · Per-visual export',changes:[
+      'FIXED (Critical): app went blank after import — caused by a React hooks-order error (#300) and an unpinned Babel update rejecting ">" in JSX. Hooks reordered; React/Babel/XLSX pinned.',
+      'FIXED (Critical): balance units and portfolio value showed 0 after CAMS/KFintech import. The parser now computes a per-folio running balance, so holdings and value are correct.',
+      'Multi-portfolio: the Compare page now shows a CONSOLIDATED total across all saved portfolios, plus a per-scheme cross-portfolio matrix (same fund across portfolios) — both exportable to Excel.',
+      'Per-visual export: every chart downloads as SVG / PNG / JPG and its data as Excel; every table downloads as CSV / Excel.',
+      'Scheme mapping: ISIN-first matching, and manual fixes are now remembered (by ISIN + name) and auto-applied to future imports.',
+      'Privacy: the recent-portfolios list on login is hidden behind an opt-in "Show saved portfolios" toggle.',
+      'Admin Console: new "Gaps & Solutions" tab listing every identified gap, its status and the fix approach.',
+    ]},
     {version:'6.2',date:'2026-06',title:'Statement import fixed (CAMS + KFintech) · Google auto-restore',changes:[
       'FIXED: CAMS RTA statement upload failed with "Header row not found". Cause — the parser only matched space-separated headers, but CAMS RTA exports use UNDERSCORES (SCHEME_NAME, TRADE_DATE, TRANSACTION_TYPE). Now normalised.',
       'FIXED: KFintech statement upload failed with "Required columns missing". Cause — KFintech labels the type column "Transaction Description" (not "Type"), which the parser did not recognise. Now handled.',
@@ -8753,6 +9476,10 @@ function FYSummaryPage({sortedTxns,navByScheme,enabled,benchmarks,benchmarkData,
                 style={{padding:'2px 8px',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:4,fontSize:9}}>SVG</button>
               <button className="btn" onClick={()=>downloadChartPNG(svgRef.current,'fy-summary.png')}
                 style={{padding:'2px 8px',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:4,fontSize:9}}>PNG</button>
+              <button className="btn" onClick={()=>downloadChartJPG(svgRef.current,'fy-summary.jpg')}
+                style={{padding:'2px 8px',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:4,fontSize:9}}>JPG</button>
+              <button className="btn" onClick={()=>{const hdr=['FY','Invested','Redeemed','Dividends','Net Flow','Portfolio at FY-end'];const data=augmented.map(r=>[r.fy,r.invested,r.redeemed,r.dividends,r.netCashFlow,r.pv]);downloadXLSX(data,hdr,'fy-summary.xlsx','FY Summary');}}
+                style={{padding:'2px 8px',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:4,fontSize:9}}>Excel</button>
             </span>
           </div>
           {/* Hover tooltip */}
@@ -9019,7 +9746,7 @@ function isNavCurrent(navByScheme){
   const lbdStr=toISO(lbd);
   // Check at least half of schemes have today's (or last business day's) NAV
   const schemes=Object.keys(navByScheme);
-  if(!schemes.length)return false;
+  if(!schemes.length)return true;
   let fresh=0;
   for(const name of schemes.slice(0,10)){
     const arr=navByScheme[name];
@@ -9416,12 +10143,15 @@ function ExportReportButton({exportOpen,setExportOpen,exporting,doExportHTML,doE
 function PortfolioComparePage({currentUserId,returnBasis,navByScheme:curNav,sortedTxns:curTxns,today}){
   // C is the global color palette (module-level const)
   const [rows,setRows]=React.useState([]);
+  const [perScheme,setPerScheme]=React.useState([]);
+  const [consolidated,setConsolidated]=React.useState(null);
   const [loading,setLoading]=React.useState(true);
 
   React.useEffect(()=>{
     const portfolios=loadUsers();
     const today2=new Date();today2.setHours(0,0,0,0);
     const results=[];
+    const schemeMap={}; // scheme -> { portId -> {value,invested,units} }
     for(const p of portfolios){
       try{
         let txns=[],nb={},schemeMappingP={},name=p.name;
@@ -9453,16 +10183,45 @@ function PortfolioComparePage({currentUserId,returnBasis,navByScheme:curNav,sort
         const gainPct=base!==0?gain/Math.abs(base)*100:0;
         const txCount=txns.length;
         const schemeCount=enabledSet.size;
-        // Top 3 funds by current value
-        const fundVals=Array.from(enabledSet).map(n=>{
+        // Per-scheme value/invested for the cross-portfolio matrix
+        const fundVals=[];
+        for(const n of enabledSet){
           const bal=schemeUnits(n,today2,txns);
           const nav=getNav(nb[n],today2);
-          return{name:n,val:nav&&bal>0.001?bal*nav:0};
-        }).filter(f=>f.val>100).sort((a,b)=>b.val-a.val).slice(0,3);
-        results.push({id:p.id,name,pv,invested,redeemed,net,bookCost,gain,gainPct,xirr,txCount,schemeCount,topFunds:fundVals,isCurrent:p.id===currentUserId});
+          const val=nav&&bal>0.001?bal*nav:0;
+          const inv=computeInvested(today2,txns,new Set([n])).invested;
+          if(val>1||inv>1){
+            schemeMap[n]=schemeMap[n]||{};
+            schemeMap[n][p.id]={value:val,invested:inv,units:bal};
+            fundVals.push({name:n,val});
+          }
+        }
+        fundVals.sort((a,b)=>b.val-a.val);
+        results.push({id:p.id,name,pv,invested,redeemed,net,bookCost,gain,gainPct,xirr,txCount,schemeCount,topFunds:fundVals.slice(0,3),isCurrent:p.id===currentUserId});
       }catch(e){console.warn('Compare load failed for',p.name,e);}
     }
-    setRows(results);setLoading(false);
+    // Consolidated totals across all portfolios
+    if(results.length){
+      const sum=k=>results.reduce((s,r)=>s+(r[k]||0),0);
+      const pvT=sum('pv'),invT=sum('invested'),netT=sum('net'),bookT=sum('bookCost'),redT=sum('redeemed');
+      const gainT=returnBasis==='gross'?pvT-invT:returnBasis==='net'?pvT-netT:pvT-bookT;
+      const baseT=returnBasis==='gross'?invT:returnBasis==='net'?netT:bookT;
+      // value-weighted blended XIRR (approximation; exact needs merged cashflows)
+      const wsum=results.reduce((s,r)=>s+(r.xirr!=null?r.xirr*r.pv:0),0);
+      const wden=results.reduce((s,r)=>s+(r.xirr!=null?r.pv:0),0);
+      setConsolidated({pv:pvT,invested:invT,redeemed:redT,net:netT,bookCost:bookT,gain:gainT,
+        gainPct:baseT!==0?gainT/Math.abs(baseT)*100:0,xirr:wden>0?wsum/wden:null,
+        txCount:sum('txCount'),schemeCount:Object.keys(schemeMap).length,portfolios:results.length});
+    }
+    // Per-scheme matrix rows
+    const portList=results.map(r=>({id:r.id,name:r.name}));
+    const ps=Object.entries(schemeMap).map(([scheme,byPort])=>{
+      const totVal=Object.values(byPort).reduce((s,x)=>s+x.value,0);
+      const totInv=Object.values(byPort).reduce((s,x)=>s+x.invested,0);
+      return{scheme,byPort,totVal,totInv,gain:totVal-totInv,count:Object.keys(byPort).length};
+    }).sort((a,b)=>b.totVal-a.totVal);
+    ps._ports=portList;
+    setRows(results);setPerScheme(ps);setLoading(false);
   },[currentUserId,returnBasis]);
 
   if(loading)return <div style={{padding:32,color:C.muted,fontFamily:'Space Mono',fontSize:13}}>Loading portfolios…</div>;
@@ -9555,6 +10314,76 @@ function PortfolioComparePage({currentUserId,returnBasis,navByScheme:curNav,sort
         </table>
       </div>
 
+      {/* Consolidated total across all portfolios */}
+      {consolidated&&(
+        <div style={{marginTop:8,marginBottom:24,background:`${C.green}0c`,border:`1px solid ${C.green}44`,borderRadius:12,padding:'16px 18px'}}>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12,flexWrap:'wrap',gap:8}}>
+            <div style={{fontFamily:'Syne',fontSize:15,fontWeight:800,color:C.green}}>⊕ Consolidated — all {consolidated.portfolios} portfolios combined</div>
+            <button className="btn" onClick={()=>{
+              const hdr=['Metric','Value'];
+              const d=[['Portfolio Value',Math.round(consolidated.pv)],['Gross Invested',Math.round(consolidated.invested)],['Redeemed',Math.round(consolidated.redeemed)],['Net Deployed',Math.round(consolidated.net)],['Book Cost (FIFO)',Math.round(consolidated.bookCost)],[`Gain (${basisLabel})`,Math.round(consolidated.gain)],['Gain %',+consolidated.gainPct.toFixed(2)],['Blended XIRR %',consolidated.xirr!=null?+(consolidated.xirr*100).toFixed(2):''],['Distinct funds',consolidated.schemeCount],['Transactions',consolidated.txCount]];
+              downloadXLSX(d,hdr,'consolidated-summary.xlsx','Consolidated');
+            }} style={{padding:'4px 11px',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:6,fontSize:10}}>↓ Excel</button>
+          </div>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))',gap:10}}>
+            {[
+              ['Total Value',FMT(consolidated.pv),C.green],
+              ['Gross Invested',FMT(consolidated.invested),C.text],
+              ['Net Deployed',FMT(consolidated.net),C.text],
+              [`Gain (${basisLabel})`,FMT(consolidated.gain),gc(consolidated.gain)],
+              ['Gain %',(consolidated.gainPct>=0?'+':'')+consolidated.gainPct.toFixed(1)+'%',gc(consolidated.gainPct)],
+              ['Blended XIRR',consolidated.xirr!=null?(consolidated.xirr*100>=0?'+':'')+(consolidated.xirr*100).toFixed(1)+'%':'—',gc(consolidated.xirr)],
+              ['Distinct Funds',consolidated.schemeCount,C.muted],
+              ['Transactions',consolidated.txCount.toLocaleString(),C.muted],
+            ].map(([l,v,col])=>(
+              <div key={l} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:9,padding:'10px 12px'}}>
+                <div style={{fontSize:9,color:C.muted}}>{l}</div>
+                <div style={{fontFamily:'Space Mono',fontSize:15,fontWeight:700,color:col,marginTop:2}}>{v}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{fontSize:9,color:C.muted2,marginTop:8}}>Blended XIRR is portfolio-value-weighted (approximation). Same fund held in multiple portfolios is aggregated in the matrix below.</div>
+        </div>
+      )}
+
+      {/* Per-scheme cross-portfolio comparison */}
+      {perScheme.length>0&&(
+        <div style={{marginBottom:24}}>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:10,flexWrap:'wrap',gap:8}}>
+            <div style={{fontFamily:'Syne',fontSize:15,fontWeight:800,color:'#fff'}}>Same scheme across portfolios</div>
+            <button className="btn" onClick={()=>{
+              const ports=perScheme._ports||[];
+              const hdr=['Scheme',...ports.map(p=>p.name+' value'),'Combined value','Combined invested','Combined gain','# portfolios'];
+              const data=perScheme.map(s=>[s.scheme,...ports.map(p=>Math.round(s.byPort[p.id]?.value||0)),Math.round(s.totVal),Math.round(s.totInv),Math.round(s.gain),s.count]);
+              downloadXLSX(data,hdr,'scheme-across-portfolios.xlsx','By Scheme');
+            }} style={{padding:'4px 11px',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:6,fontSize:10}}>↓ Excel</button>
+          </div>
+          <div style={{fontSize:10,color:C.muted,marginBottom:8}}>Current value of each fund in every portfolio + the combined total. Funds held in more than one portfolio are highlighted.</div>
+          <div style={{overflowX:'auto'}}>
+            <table style={{width:'100%',borderCollapse:'collapse',fontSize:11,minWidth:520}}>
+              <thead><tr style={{background:C.surface}}>
+                <th style={{padding:'8px 12px',textAlign:'left',color:C.muted,fontFamily:'Space Mono',fontSize:10,borderBottom:`1px solid ${C.border}`,whiteSpace:'nowrap'}}>Scheme</th>
+                {(perScheme._ports||[]).map(p=>(
+                  <th key={p.id} style={{padding:'8px 12px',textAlign:'right',color:C.muted,fontSize:10,borderBottom:`1px solid ${C.border}`,whiteSpace:'nowrap'}}>{p.name}</th>
+                ))}
+                <th style={{padding:'8px 12px',textAlign:'right',color:C.green,fontSize:10,borderBottom:`1px solid ${C.border}`,whiteSpace:'nowrap'}}>Combined</th>
+              </tr></thead>
+              <tbody>
+                {perScheme.map((s,si)=>(
+                  <tr key={s.scheme} style={{background:s.count>1?`${C.amber}0c`:(si%2===0?C.card:'transparent'),borderBottom:`1px solid ${C.border}22`}}>
+                    <td style={{padding:'7px 12px',color:C.text}}>{s.scheme}{s.count>1&&<span style={{marginLeft:6,fontSize:8,color:C.amber,border:`1px solid ${C.amber}55`,borderRadius:3,padding:'0 4px'}}>×{s.count}</span>}</td>
+                    {(perScheme._ports||[]).map(p=>(
+                      <td key={p.id} style={{padding:'7px 12px',textAlign:'right',fontFamily:'Space Mono',color:s.byPort[p.id]?C.text:C.muted2}}>{s.byPort[p.id]?FMT(s.byPort[p.id].value):'—'}</td>
+                    ))}
+                    <td style={{padding:'7px 12px',textAlign:'right',fontFamily:'Space Mono',color:C.green,fontWeight:700}}>{FMT(s.totVal)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
       <div style={{marginTop:16,fontSize:10,color:C.muted2}}>
         NAV data may be stale for inactive portfolios. Switch to a portfolio and refresh NAV for live values.
         Returns basis: <b style={{color:C.text}}>{returnBasis==='book'?'Book Cost (FIFO)':returnBasis==='net'?'Net Deployed':'Gross Invested'}</b>.
@@ -9619,6 +10448,22 @@ async function gdriveDownload(token,folderId,filename){
     {headers:{'Authorization':'Bearer '+token.access_token}});
   if(!r.ok)return null;
   return r.text();
+}
+
+// Create a Drive folder (reuse an existing same-named one if present).
+// Takes the token OBJECT, like the other gdrive* helpers.
+async function gdriveCreateFolder(token,name,parentId){
+  const nm=String(name||'').trim()||'MF Advisor';
+  // Reuse an existing folder with this name to avoid duplicates.
+  const pClause=parentId&&parentId!=='root'?` and '${parentId}' in parents`:'';
+  const q=encodeURIComponent(`name='${nm.replace(/'/g,"\\'")}' and mimeType='application/vnd.google-apps.folder' and trashed=false${pClause}`);
+  try{
+    const chk=await gdriveRequest(token,'GET',`https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(id,name)`);
+    if(chk.files&&chk.files[0])return chk.files[0];
+  }catch(e){/* fall through to create */}
+  const meta={name:nm,mimeType:'application/vnd.google-apps.folder',
+    ...(parentId&&parentId!=='root'?{parents:[parentId]}:{})};
+  return gdriveRequest(token,'POST','https://www.googleapis.com/drive/v3/files?fields=id,name',meta);
 }
 
 function GoogleDrivePanel({currentUserId,onSaveComplete,onLoadComplete,getExportData,onRestoreData}){
@@ -9765,9 +10610,10 @@ function GoogleDrivePanel({currentUserId,onSaveComplete,onLoadComplete,getExport
               <button className="btn" onClick={()=>{
                 const nm=window.prompt('New folder name:','MF Advisor');
                 if(!nm)return;
-                gdriveCreateFolder(token.access_token,nm)
+                setStatus('Creating folder…');
+                gdriveCreateFolder(token,nm)
                   .then(()=>gdriveListFolders(token))
-                  .then(f=>{setFolders(f);const nf=f.find(x=>x.name===nm);if(nf)setSelectedFolder(nf.id);setStatus('Folder created ✓');})
+                  .then(f=>{setFolders(f);const nf=f.find(x=>x.name===nm);if(nf){setSelectedFolder(nf.id);_store.set(GDRIVE_FOLDER_KEY,nf.id);}setStatus('Folder "'+nm+'" ready ✓');})
                   .catch(e=>setStatus('Error: '+e.message));}}
                 style={{padding:'5px 10px',fontSize:10,background:'transparent',border:`1px solid ${C.border}`,color:C.muted,borderRadius:4}}>+ New</button>
             </div>
@@ -9802,6 +10648,7 @@ function EmailLoginScreen({onLogin}){
   const [email,setEmail]=React.useState('');
   const [name,setName]=React.useState('');
   const [isNew,setIsNew]=React.useState(false);
+  const [showRecent,setShowRecent]=React.useState(false);
   const existing=loadUsers();
   const isHttps=window.location.protocol==='https:';
 
@@ -9815,7 +10662,7 @@ function EmailLoginScreen({onLogin}){
       setErr('Google not loaded — check internet connection.');
       return;
     }
-    const cid=_store.get('mfa_gd_cid')||'619259115899-tu03p0b80cj4taotbtaqrmh5b24p7sip.apps.googleusercontent.com';
+    const cid=_store.get('mfa_gd_cid')||_store.get('mfa_gdrive_client_id')||'619259115899-tu03p0b80cj4taotbtaqrmh5b24p7sip.apps.googleusercontent.com';
     window.google.accounts.oauth2.initTokenClient({
       client_id:cid,
       scope:'openid email profile https://www.googleapis.com/auth/drive.file',
@@ -9936,22 +10783,37 @@ function EmailLoginScreen({onLogin}){
           Your email is the key to your portfolio. No password, no server, no signup.
         </div>
 
-        {/* Recent portfolios */}
+        {/* Recent portfolios — hidden by default for privacy; opt-in reveal */}
         {existing.length>0&&(
           <div style={{borderTop:'1px solid '+C.border,paddingTop:12}}>
-            <div style={{fontSize:9,color:C.muted,fontWeight:600,marginBottom:6,letterSpacing:'.05em'}}>RECENT PORTFOLIOS</div>
-            {existing.slice(0,5).map(u=>(
-              <button key={u.id} onClick={()=>onLogin(u.id,u.name||u.email||u.id,u.email||'')}
-                style={{display:'flex',width:'100%',alignItems:'center',gap:8,padding:'7px 10px',marginBottom:4,
-                  background:'transparent',border:'1px solid '+C.border,color:C.text,
-                  borderRadius:6,fontSize:11,textAlign:'left',cursor:'pointer'}}>
-                {u.picture
-                  ?<img src={u.picture} style={{width:20,height:20,borderRadius:'50%'}} alt=""/>
-                  :<span style={{color:C.accent}}>📁</span>}
-                <span style={{flex:1,fontWeight:600}}>{u.name||u.id}</span>
-                {u.email&&<span style={{color:C.muted,fontSize:9}}>{u.email}</span>}
+            {!showRecent?(
+              <button onClick={()=>setShowRecent(true)}
+                style={{display:'flex',width:'100%',alignItems:'center',justifyContent:'center',gap:6,padding:'7px 10px',
+                  background:'transparent',border:'1px dashed '+C.border,color:C.muted,
+                  borderRadius:6,fontSize:10,cursor:'pointer'}}>
+                🔒 Show {existing.length} saved portfolio{existing.length>1?'s':''} on this device
               </button>
-            ))}
+            ):(
+              <>
+                <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}>
+                  <span style={{fontSize:9,color:C.muted,fontWeight:600,letterSpacing:'.05em'}}>SAVED ON THIS DEVICE</span>
+                  <button onClick={()=>setShowRecent(false)} style={{background:'transparent',border:'none',color:C.muted,fontSize:9,cursor:'pointer',textDecoration:'underline'}}>hide</button>
+                </div>
+                {existing.slice(0,5).map(u=>(
+                  <button key={u.id} onClick={()=>onLogin(u.id,u.name||u.email||u.id,u.email||'')}
+                    style={{display:'flex',width:'100%',alignItems:'center',gap:8,padding:'7px 10px',marginBottom:4,
+                      background:'transparent',border:'1px solid '+C.border,color:C.text,
+                      borderRadius:6,fontSize:11,textAlign:'left',cursor:'pointer'}}>
+                    {u.picture
+                      ?<img src={u.picture} style={{width:20,height:20,borderRadius:'50%'}} alt=""/>
+                      :<span style={{color:C.accent}}>📁</span>}
+                    <span style={{flex:1,fontWeight:600}}>{u.name||u.id}</span>
+                    {u.email&&<span style={{color:C.muted,fontSize:9}}>{u.email}</span>}
+                  </button>
+                ))}
+                <div style={{fontSize:8,color:C.muted2,marginTop:4,lineHeight:1.5}}>These are stored only in this browser. Sign in with email or Google above to open one.</div>
+              </>
+            )}
           </div>
         )}
 
@@ -10001,7 +10863,7 @@ function AdminConsolePage({currentUserEmail,flags,setFlags,goSettings,onRevokeAd
     return true;
   });
 
-  const TABS=[['overview','Overview'],['registry','Feature Registry'],['bugs','Bug Tracker'],['changelog','Change Log'],['roadmap','Roadmap'],['flags','Feature Flags'],['settings','Settings & Access']];
+  const TABS=[['overview','Overview'],['registry','Feature Registry'],['gaps','Gaps & Solutions'],['bugs','Bug Tracker'],['changelog','Change Log'],['roadmap','Roadmap'],['flags','Feature Flags'],['settings','Settings & Access']];
   const card={background:C.card,border:'1px solid '+C.border,borderRadius:12,padding:'16px 18px'};
   const th={textAlign:'left',padding:'7px 9px',fontSize:9,fontFamily:'Space Mono',color:C.muted,letterSpacing:'.05em',borderBottom:'1px solid '+C.border,position:'sticky',top:0,background:C.surface,whiteSpace:'nowrap'};
   const td={padding:'7px 9px',fontSize:11,color:C.text,borderBottom:'1px solid '+C.border+'88',verticalAlign:'top'};
@@ -10152,6 +11014,39 @@ function AdminConsolePage({currentUserEmail,flags,setFlags,goSettings,onRevokeAd
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {tab==='gaps'&&(
+        <div style={{display:'flex',flexDirection:'column',gap:8}}>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:8}}>
+            <div style={{fontSize:11,color:C.muted}}>Identified gaps from user feedback, with status and the solution approach. {(DB.gapAnalysis||[]).filter(g=>/Fixed|Done/.test(g.status)).length} resolved · {(DB.gapAnalysis||[]).filter(g=>/Open|Partial|Improved/.test(g.status)).length} in progress/planned.</div>
+            <button className="btn" onClick={()=>toCSV(['ID','Area','Gap','Severity','Status','Solution'],(DB.gapAnalysis||[]).map(g=>[g.id,g.area,g.gap,g.severity,g.status,g.solution]),'mf-advisor-gaps.csv')}
+              style={{padding:'5px 11px',background:'transparent',border:'1px solid '+C.border,color:C.muted,borderRadius:6,fontSize:10}}>↓ CSV</button>
+          </div>
+          {!DB.gapAnalysis?<div style={{color:C.muted,fontSize:12}}>No gap analysis in this build.</div>:(
+            <div style={{...card,overflowX:'auto'}}>
+              <table style={{width:'100%',borderCollapse:'collapse',minWidth:680}}>
+                <thead><tr><th style={th}>ID</th><th style={th}>Area</th><th style={{...th,minWidth:200}}>Gap</th><th style={th}>Severity</th><th style={th}>Status</th><th style={{...th,minWidth:220}}>Solution</th></tr></thead>
+                <tbody>
+                  {DB.gapAnalysis.map(g=>{
+                    const sevC=g.severity==='Critical'?C.red:g.severity==='High'?C.amber:g.severity==='Medium'?C.accent:C.muted;
+                    const stC=/Fixed|Done/.test(g.status)?C.green:/Improved|Partial/.test(g.status)?C.amber:C.muted;
+                    return(
+                      <tr key={g.id} className="row-hover">
+                        <td style={{...td,fontFamily:'Space Mono',color:C.accent,whiteSpace:'nowrap'}}>{g.id}</td>
+                        <td style={{...td,whiteSpace:'nowrap',color:C.muted}}>{g.area}</td>
+                        <td style={td}>{g.gap}</td>
+                        <td style={{...td,whiteSpace:'nowrap'}}><span style={{color:sevC,fontFamily:'Space Mono',fontSize:10}}>{g.severity}</span></td>
+                        <td style={{...td,whiteSpace:'nowrap'}}><span style={{color:stC,fontFamily:'Space Mono',fontSize:10}}>{g.status}</span></td>
+                        <td style={{...td,color:C.muted}}>{g.solution}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       )}
 
@@ -10415,8 +11310,13 @@ function PlanningPage({fundStats,totalPortVal}){
 }
 
 /* ══════════ TAX — F118: FIFO STCG/LTCG per fund per FY ══════════ */
-function computeTaxLots(scheme,sortedTxns){
+function computeTaxLots(scheme,sortedTxns,opts){
   const lots=[]; const realised=[];
+  // G20: equity LTCG grandfathering — for units bought on/before 31-Jan-2018,
+  // cost = max(actual cost, min(FMV on 31-Jan-2018, sale price)). Needs NAV.
+  const GF_DATE=new Date(2018,0,31);
+  const isEq=opts&&opts.isEquity;
+  const fmv311=(isEq&&opts.navArr)?getNav(opts.navArr,GF_DATE):null;
   for(const t of sortedTxns){
     if(t.scheme!==scheme)continue;
     const c=clf(t.txType); const u=resolveUnits(t); const amt=Math.abs(t.amount||0);
@@ -10427,16 +11327,20 @@ function computeTaxLots(scheme,sortedTxns){
       let rem=u; const sellPrice=u>0?amt/u:price;
       while(rem>0.0001&&lots.length){
         const lot=lots[0]; const take=Math.min(rem,lot.units);
-        const gain=take*(sellPrice-lot.price);
+        let costPrice=lot.price, gf=false;
+        if(fmv311&&fmv311>0&&lot.date<=GF_DATE){ // grandfathered cost basis
+          costPrice=Math.max(lot.price,Math.min(fmv311,sellPrice)); gf=costPrice!==lot.price;
+        }
+        const gain=take*(sellPrice-costPrice);
         const days=Math.round((date-lot.date)/86400000);
-        realised.push({buyDate:lot.date,sellDate:date,units:take,cost:take*lot.price,proceeds:take*sellPrice,gain,days,fy:getIndiaFY(date)});
+        realised.push({buyDate:lot.date,sellDate:date,units:take,cost:take*costPrice,proceeds:take*sellPrice,gain,days,fy:getIndiaFY(date),grandfathered:gf});
         lot.units-=take; rem-=take; if(lot.units<=0.0001)lots.shift();
       }
     }
   }
   return realised;
 }
-function TaxPage({sortedTxns,enabled}){
+function TaxPage({sortedTxns,enabled,navByScheme}){
   const names=useMemo(()=>[...enabled],[enabled]);
   const [eqLT,setEqLT]=useState('12.5');
   const [eqST,setEqST]=useState('20');
@@ -10446,7 +11350,7 @@ function TaxPage({sortedTxns,enabled}){
     const rows=[]; // {scheme, isEquity, fy, stcg, ltcg, lots[]}
     for(const name of names){
       const isEq=['Equity','Hybrid'].includes(getAssetClass(name));
-      const realised=computeTaxLots(name,sortedTxns).filter(r=>Math.abs(r.gain)>0.01);
+      const realised=computeTaxLots(name,sortedTxns,{isEquity:isEq,navArr:navByScheme&&navByScheme[name]}).filter(r=>Math.abs(r.gain)>0.01);
       if(!realised.length)continue;
       const byFy={};
       for(const r of realised){
@@ -10471,7 +11375,7 @@ function TaxPage({sortedTxns,enabled}){
       return{...f,eqLTtax,eqSTtax,debtTax,totalTax:eqLTtax+eqSTtax+debtTax,totalGain:f.eqST+f.eqLT+f.debtST+f.debtLT};
     });
     return{rows,fyList};
-  },[names,sortedTxns,eqLT,eqST,slab]);
+  },[names,sortedTxns,eqLT,eqST,slab,navByScheme]);
 
   const td={padding:'8px 10px',fontSize:11,borderBottom:'1px solid '+C.border+'99',color:C.text};
   const th={padding:'8px 10px',fontSize:9,fontFamily:'Space Mono',color:C.muted,textAlign:'right',borderBottom:'1px solid '+C.border,letterSpacing:'.04em'};
@@ -10483,7 +11387,7 @@ function TaxPage({sortedTxns,enabled}){
       <div style={{fontSize:11,color:C.muted,marginBottom:14}}>Realised STCG / LTCG per financial year, computed FIFO from your redemptions. Holding period: equity &gt; 12 months = long-term, debt &gt; 36 months. Rates are editable assumptions.</div>
 
       <div style={{...F_CARD(),borderColor:C.amber+'33',marginBottom:14,fontSize:11,color:C.muted,lineHeight:1.6}}>
-        <b style={{color:C.amber}}>⚠ Not tax advice.</b> Tax law changes (e.g. equity STCG 20% &amp; LTCG 12.5% with a ₹1.25L exemption from 23 Jul 2024; debt funds bought after 1 Apr 2023 are taxed at your slab). FIFO here may differ from your broker's method. Verify with a professional before filing.
+        <b style={{color:C.amber}}>⚠ Not tax advice.</b> Tax law changes (e.g. equity STCG 20% &amp; LTCG 12.5% with a ₹1.25L exemption from 23 Jul 2024; debt funds bought after 1 Apr 2023 are taxed at your slab). FIFO here may differ from your broker's method. Equity units bought on/before 31 Jan 2018 use grandfathered cost (NAV on that date) where NAV is available. Verify with a professional before filing.
       </div>
 
       <div style={{display:'flex',gap:14,flexWrap:'wrap',marginBottom:16}}>
@@ -10497,7 +11401,10 @@ function TaxPage({sortedTxns,enabled}){
       ):(
         <>
           <div style={{...F_CARD(),marginBottom:16,overflowX:'auto'}}>
-            <div style={{fontFamily:'Syne',fontSize:14,fontWeight:700,color:'#fff',marginBottom:10}}>Per financial year</div>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:10}}>
+              <div style={{fontFamily:'Syne',fontSize:14,fontWeight:700,color:'#fff'}}>Per financial year</div>
+              <button className="btn" onClick={()=>downloadXLSX(data.fyList.map(f=>[f.fy,Math.round(f.eqST),Math.round(f.eqLT),Math.round(f.debtST+f.debtLT),Math.round(f.totalGain),Math.round(f.totalTax)]),['FY','Equity STCG','Equity LTCG','Debt gains','Total gain','Est. tax'],'tax-by-fy.xlsx','Tax by FY')} style={{padding:'4px 11px',background:'transparent',border:'1px solid '+C.border,color:C.muted,borderRadius:6,fontSize:10}}>↓ Excel</button>
+            </div>
             <table style={{width:'100%',borderCollapse:'collapse',minWidth:680}}>
               <thead><tr>
                 <th style={{...th,textAlign:'left'}}>FY</th><th style={th}>Equity STCG</th><th style={th}>Equity LTCG</th><th style={th}>Debt gains</th><th style={th}>Total gain</th><th style={{...th,color:C.amber}}>Est. tax</th>
@@ -10589,8 +11496,13 @@ function AllocationView({fundStats,totalPortVal}){
   };
   const byClass=group(getAssetClass);
   const byCat=group(deriveCategory);
+  const dlAlloc=(items,base)=>downloadXLSX(items.map(it=>[it.l,Math.round(it.v),+(it.v/total*100).toFixed(2)]),['Bucket','Value','% of Portfolio'],base+'.xlsx',base);
   return(
     <div style={{display:'flex',flexDirection:'column',gap:16}}>
+      <div style={{display:'flex',justifyContent:'flex-end',gap:6}}>
+        <button className="btn" onClick={()=>dlAlloc(byClass,'allocation-by-class')} style={{padding:'4px 11px',background:'transparent',border:'1px solid '+C.border,color:C.muted,borderRadius:6,fontSize:10}}>↓ Excel (class)</button>
+        <button className="btn" onClick={()=>dlAlloc(byCat,'allocation-by-category')} style={{padding:'4px 11px',background:'transparent',border:'1px solid '+C.border,color:C.muted,borderRadius:6,fontSize:10}}>↓ Excel (category)</button>
+      </div>
       <div style={{...F_CARD(),borderColor:C.accent+'33',fontSize:11,color:C.muted,lineHeight:1.6}}>
         Allocation is derived from each fund's <b style={{color:C.text}}>asset class &amp; category</b> (from the fund name + AMFI class). True stock-level sector weights (IT, Finance, Pharma) need monthly factsheet holdings, which the open NAV API does not publish — so this is a fund-category view, which is what you can act on for diversification.
       </div>
@@ -10973,6 +11885,7 @@ function App(){
   const [enabled,setEnabled]=useState(new Set());
   const [period,setPeriod]=useState({l:'52W',days:365});
   const [showExited,setShowExited]=useState(true);
+  const [scope,setScope]=useState('current'); // G08: 'current' | 'all' (consolidate every saved portfolio)
   const [exportOpen,setExportOpen]=useState(false);
   const [exporting,setExporting]=useState(false); // lifted from FundOverviewPage — persisted
   const [sidebarOpen,setSidebarOpen]=useState(true);
@@ -11008,26 +11921,67 @@ function App(){
   useEffect(()=>{ G_CURRENCY=displayCurrency; G_UNIT=displayUnit; },[displayCurrency,displayUnit]);
 
   const today=useMemo(()=>{const d=new Date();d.setHours(0,0,0,0);return d;},[]);
-  const sortedTxns=useMemo(()=>[...allTxns].sort((a,b)=>{
+
+  // ── G08: CONSOLIDATION across all saved portfolios ──────────────────
+  // When scope==='all', merge transactions + NAV history from every saved
+  // portfolio with the current in-memory one (deduped), so EVERY visual reflects
+  // the combined picture. When scope==='current' this is inert (zero overhead).
+  const consolidated=useMemo(()=>{
+    if(scope!=='all')return null;
+    const mergedTxns=[];const mergedNav={};const seen=new Set();
+    const addTxns=(txns,tag)=>{
+      for(const t of (txns||[])){
+        const dt=t.date instanceof Date?t.date:new Date(t.date);
+        const key=(t.isin||t.scheme)+'|'+(t.folioId||'')+'|'+(isNaN(dt)?t.date:dt.toISOString().slice(0,10))+'|'+Math.round(Math.abs(t.amount||0))+'|'+(Math.round((t.units||0)*1000));
+        if(seen.has(key))continue;seen.add(key);
+        mergedTxns.push({...t,date:dt,_pf:tag});
+      }
+    };
+    const addNav=(nb)=>{for(const[k,arr]of Object.entries(nb||{})){if(!mergedNav[k]&&arr&&arr.length)mergedNav[k]=arr;}};
+    // current portfolio (live, authoritative) first
+    addTxns(allTxns,currentUserId);addNav(navByScheme);
+    // other portfolios from storage
+    for(const p of loadUsers()){
+      if(p.id===currentUserId)continue;
+      try{
+        const raw=_store.get(getUserSaveKey(p.id));if(!raw)continue;
+        const st=JSON.parse(raw);if(!st||(st.v||0)<4)continue;
+        addTxns((st.transactions||[]).map(t=>({...t,date:fromISO(t.date)||new Date(t.date)})),p.id);
+        // NAV: prefer the per-user nav cache, else the embedded navByScheme
+        let nb={};
+        try{const nr=_store.get('mfa_nav_v1_'+p.id);if(nr){const np=JSON.parse(nr);for(const[n,a]of Object.entries(np))nb[n]=a.map(x=>({d:fromISO(x.d),v:parseFloat(x.v)})).filter(x=>x.d&&x.v>0);}}catch{}
+        if(!Object.keys(nb).length&&st.navByScheme){for(const[n,a]of Object.entries(st.navByScheme))nb[n]=a.map(pt=>({d:fromISO(pt.date),v:parseFloat(pt.nav)})).filter(x=>x.d&&x.v>0);}
+        addNav(nb);
+      }catch(e){}
+    }
+    const schemes=new Set(mergedTxns.map(t=>t.scheme));
+    return{txns:mergedTxns,nav:mergedNav,schemes,count:loadUsers().length};
+  },[scope,allTxns,navByScheme,currentUserId]);
+
+  // Effective working set — identical to the current portfolio unless scope==='all'
+  const effTxns=consolidated?consolidated.txns:allTxns;
+  const effNav=consolidated?consolidated.nav:navByScheme;
+
+  const sortedTxns=useMemo(()=>[...effTxns].sort((a,b)=>{
     const at=a.date instanceof Date?a.date.getTime():new Date(a.date).getTime();
     const bt=b.date instanceof Date?b.date.getTime():new Date(b.date).getTime();
     return at-bt;
-  }),[allTxns]);
+  }),[effTxns]);
   const minDate=useMemo(()=>sortedTxns.length?sortedTxns[0].date:subYears(today,10),[sortedTxns,today]);
-  const allSchemes=useMemo(()=>[...new Set(sortedTxns.map(t=>t.scheme))].filter(s=>navByScheme[s]),[sortedTxns,navByScheme]);
+  const allSchemes=useMemo(()=>[...new Set(sortedTxns.map(t=>t.scheme))].filter(s=>effNav[s]),[sortedTxns,effNav]);
 
   // Per-fund stats for analysis page
   const fundStats=useMemo(()=>{
-    const enabledSet=enabled instanceof Set?enabled:new Set(enabled);
-    return Array.from(enabledSet).map(name=>{
+    const baseEnabled=consolidated?consolidated.schemes:(enabled instanceof Set?enabled:new Set(enabled));
+    return Array.from(baseEnabled).map(name=>{
       const bal=schemeUnits(name,today,sortedTxns);
-      const nav=getNav(navByScheme[name],today);
+      const nav=getNav(effNav[name],today);
       const currentVal=nav&&bal>0.001?bal*nav:0;
       const{invested}=computeInvested(today,sortedTxns,new Set([name]));
-      const x=computeXirrForScheme(name,today,null,sortedTxns,navByScheme);
+      const x=computeXirrForScheme(name,today,null,sortedTxns,effNav);
       return{name,currentVal,invested,gain:currentVal-invested,xirr:x,exited:currentVal<10&&bal<0.001};
     }).filter(s=>s.currentVal>100||s.invested>100);
-  },[enabled,sortedTxns,navByScheme,today]);
+  },[enabled,consolidated,sortedTxns,effNav,today]);
   const totalPortVal=useMemo(()=>fundStats.reduce((a,f)=>a+f.currentVal,0),[fundStats]);
 
   // ── Background NAV refresh ──
@@ -11050,7 +12004,7 @@ function App(){
   const fetchNavBackground=useCallback(async(nb,smIn)=>{
     const cached=loadNavCache();
     const nbToUse={...cached,...(nb||navBySchemeRef.current)};
-    if(Object.keys(nbToUse).length>0&&isNavCurrent(nbToUse)){setNavStatus('done');return;}
+    if(isNavCurrent(nbToUse)){setNavStatus('done');return;}
     setNavStatus('fetching');
     const smMap=smIn||sm;
     const lbd=lastBusinessDay();
@@ -11670,7 +12624,7 @@ function App(){
     );
   }
 
-  const enabledSet=enabled instanceof Set?enabled:new Set(enabled);
+  const enabledSet=consolidated?consolidated.schemes:(enabled instanceof Set?enabled:new Set(enabled));
   const filteredEnabledSet=showExited?enabledSet:(()=>{
     const exitedNames=new Set(fundStats.filter(f=>f.exited).map(f=>f.name));
     return new Set([...enabledSet].filter(n=>!exitedNames.has(n)));
@@ -11709,6 +12663,17 @@ function App(){
               </button>
             ):null;
           })()}
+          {/* G08: scope toggle — consolidate all portfolios into every visual */}
+          {appState==='app'&&loadUsers().length>1&&(
+            <div style={{display:'flex',border:`1px solid ${scope==='all'?C.green:C.border}`,borderRadius:6,overflow:'hidden'}} title="Show this portfolio only, or combine every saved portfolio in all charts & reports">
+              {[['current','This'],['all','All combined']].map(([k,l])=>(
+                <button key={k} className="btn" onClick={()=>setScope(k)}
+                  style={{padding:'3px 9px',fontSize:10,fontFamily:'Space Mono',border:'none',
+                    background:scope===k?(k==='all'?`${C.green}22`:`${C.accent}18`):'transparent',
+                    color:scope===k?(k==='all'?C.green:C.accent):C.muted}}>{k==='all'?'⊕ ':''}{l}</button>
+              ))}
+            </div>
+          )}
         </div>
         {/* Nav tabs */}
         {appState==='app'&&(
@@ -11830,11 +12795,16 @@ function App(){
         )}
         {/* PAGE CONTENT */}
         <div data-scroll style={{flex:1,overflowY:'auto'}}>
+          {scope==='all'&&appState==='app'&&(
+            <div style={{margin:'10px 16px 0',padding:'7px 12px',background:`${C.green}10`,border:`1px solid ${C.green}40`,borderRadius:8,fontSize:11,color:C.green,display:'flex',alignItems:'center',gap:8}}>
+              ⊕ <b>Consolidated view</b> — every chart, table and report below combines all {loadUsers().length} saved portfolios. Editing (transactions, mapping, NAV) still applies to the active portfolio only.
+            </div>
+          )}
           <ErrorBoundary name="Dashboard" key={`dash-${enabledSet.size}`}>
           {page==='dashboard'&&(
             <DashboardPage
               sortedTxns={sortedTxns}
-              navByScheme={navByScheme}
+              navByScheme={effNav}
               enabled={filteredEnabledSet}
               period={period}
               minDate={minDate}
@@ -11853,7 +12823,7 @@ function App(){
           {page==='overview'&&(
             <FundOverviewPage
               sortedTxns={sortedTxns}
-              navByScheme={navByScheme}
+              navByScheme={effNav}
               sm={sm}
               enabled={filteredEnabledSet}
               period={period}
@@ -11870,7 +12840,7 @@ function App(){
           {page==='performance'&&(
             <FundPerformancePage
               sortedTxns={sortedTxns}
-              navByScheme={navByScheme}
+              navByScheme={effNav}
               sm={sm}
               enabled={filteredEnabledSet}
               period={period}
@@ -11884,7 +12854,7 @@ function App(){
           {page==='fysummary'&&(
             <FYSummaryPage
               sortedTxns={sortedTxns}
-              navByScheme={navByScheme}
+              navByScheme={effNav}
               enabled={filteredEnabledSet}
               benchmarks={benchmarks}
               benchmarkData={benchmarkData}
@@ -11895,7 +12865,7 @@ function App(){
           {page==='xirr'&&(
             <XirrReviewPage
               sortedTxns={sortedTxns}
-              navByScheme={navByScheme}
+              navByScheme={effNav}
               enabled={filteredEnabledSet}
               period={period}
               minDate={minDate}/>
@@ -11908,7 +12878,7 @@ function App(){
               analyticsMap={analyticsMap}
               totalPortVal={totalPortVal}
               sortedTxns={sortedTxns}
-              navByScheme={navByScheme}
+              navByScheme={effNav}
               allTxns={allTxns}
               setAllTxns={setAllTxns}
               enabled={filteredEnabledSet}
@@ -11921,7 +12891,7 @@ function App(){
           {page==='npv'&&(
             <NpvPage
               sortedTxns={sortedTxns}
-              navByScheme={navByScheme}
+              navByScheme={effNav}
               enabled={filteredEnabledSet}
               benchmarks={benchmarks}
               setBenchmarks={setBenchmarks}
@@ -11938,12 +12908,12 @@ function App(){
           {page==='planning'&&<PlanningPage fundStats={fundStats} totalPortVal={totalPortVal}/>}
           </ErrorBoundary>
           <ErrorBoundary name="Tax">
-          {page==='tax'&&<TaxPage sortedTxns={sortedTxns} enabled={filteredEnabledSet}/>}
+          {page==='tax'&&<TaxPage sortedTxns={sortedTxns} enabled={filteredEnabledSet} navByScheme={effNav}/>}
           </ErrorBoundary>
           <ErrorBoundary name="Insights">
           {page==='insights'&&(
             <InsightsPage fundStats={fundStats} totalPortVal={totalPortVal}
-              sortedTxns={sortedTxns} navByScheme={navByScheme} enabled={filteredEnabledSet}/>
+              sortedTxns={sortedTxns} navByScheme={effNav} enabled={filteredEnabledSet}/>
           )}
           </ErrorBoundary>
           <ErrorBoundary name="Reports">
