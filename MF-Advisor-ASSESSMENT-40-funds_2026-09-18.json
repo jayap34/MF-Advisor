@@ -1,0 +1,1153 @@
+{
+ "v": 4,
+ "savedAt": "2026-09-18T00:00:00.000Z",
+ "ownerName": "Assessment Validation - 40 candidate funds",
+ "transactions": [
+  {
+   "id": "tx-001",
+   "date": "2019-07-12",
+   "scheme": "Kotak Large Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 249.612,
+   "units": 40.062,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 40.062
+  },
+  {
+   "id": "tx-002",
+   "date": "2019-07-25",
+   "scheme": "Kotak Flexi Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 36.658,
+   "units": 272.792,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 272.792
+  },
+  {
+   "id": "tx-003",
+   "date": "2019-07-26",
+   "scheme": "Parag Parikh ELSS Tax Saver Dir-G",
+   "txType": "Investment in fund",
+   "price": 10.0129,
+   "units": 998.712,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 998.712
+  },
+  {
+   "id": "tx-004",
+   "date": "2019-07-26",
+   "scheme": "Mirae Asset ELSS Tax Saver Dir-G",
+   "txType": "Investment in fund",
+   "price": 18.354,
+   "units": 544.84,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 544.84
+  },
+  {
+   "id": "tx-005",
+   "date": "2019-07-29",
+   "scheme": "Parag Parikh Flexi Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 25.5037,
+   "units": 392.1,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 392.1
+  },
+  {
+   "id": "tx-006",
+   "date": "2019-07-29",
+   "scheme": "Invesco India Small Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 9.66,
+   "units": 1035.197,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 1035.197
+  },
+  {
+   "id": "tx-007",
+   "date": "2019-07-29",
+   "scheme": "Tata Small Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 9.8467,
+   "units": 1015.569,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 1015.569
+  },
+  {
+   "id": "tx-008",
+   "date": "2019-07-29",
+   "scheme": "ICICI Pru Balanced Advantage Dir-G",
+   "txType": "Investment in fund",
+   "price": 37.95,
+   "units": 263.505,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 263.505
+  },
+  {
+   "id": "tx-009",
+   "date": "2019-07-30",
+   "scheme": "ABSL Mid Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 277.23,
+   "units": 36.071,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 36.071
+  },
+  {
+   "id": "tx-010",
+   "date": "2019-07-31",
+   "scheme": "ICICI Pru Value Dir-G",
+   "txType": "Investment in fund",
+   "price": 146.65,
+   "units": 68.19,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 68.19
+  },
+  {
+   "id": "tx-011",
+   "date": "2019-07-31",
+   "scheme": "Nippon India Banking & Financial Services Dir-G",
+   "txType": "Investment in fund",
+   "price": 281.85,
+   "units": 35.48,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 35.48
+  },
+  {
+   "id": "tx-012",
+   "date": "2019-07-31",
+   "scheme": "HDFC Balanced Advantage Dir-G",
+   "txType": "Investment in fund",
+   "price": 202.501,
+   "units": 49.382,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 49.382
+  },
+  {
+   "id": "tx-013",
+   "date": "2019-08-01",
+   "scheme": "ABSL Small Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 31.887,
+   "units": 313.607,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 313.607
+  },
+  {
+   "id": "tx-014",
+   "date": "2019-08-02",
+   "scheme": "Edelweiss Large & Mid Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 31.859,
+   "units": 313.883,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 313.883
+  },
+  {
+   "id": "tx-015",
+   "date": "2019-08-06",
+   "scheme": "ICICI Pru Large Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 42.28,
+   "units": 236.518,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 236.518
+  },
+  {
+   "id": "tx-016",
+   "date": "2019-08-09",
+   "scheme": "ABSL Balanced Advantage Dir-G",
+   "txType": "Investment in fund",
+   "price": 55.14,
+   "units": 181.357,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 181.357
+  },
+  {
+   "id": "tx-017",
+   "date": "2019-08-13",
+   "scheme": "Kotak Mid Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 38.397,
+   "units": 260.437,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 260.437
+  },
+  {
+   "id": "tx-018",
+   "date": "2019-08-13",
+   "scheme": "ICICI Pru Infrastructure Dir-G",
+   "txType": "Investment in fund",
+   "price": 49.14,
+   "units": 203.5,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 203.5
+  },
+  {
+   "id": "tx-019",
+   "date": "2019-08-14",
+   "scheme": "SBI Healthcare Opportunities Dir-G",
+   "txType": "Investment in fund",
+   "price": 116.4821,
+   "units": 85.85,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 85.85
+  },
+  {
+   "id": "tx-020",
+   "date": "2019-08-16",
+   "scheme": "ICICI Pru Banking & Financial Services Dir-G",
+   "txType": "Investment in fund",
+   "price": 66.41,
+   "units": 150.58,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 150.58
+  },
+  {
+   "id": "tx-021",
+   "date": "2019-08-19",
+   "scheme": "HDFC Mid Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 52.218,
+   "units": 191.505,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 191.505
+  },
+  {
+   "id": "tx-022",
+   "date": "2019-08-19",
+   "scheme": "Invesco India Mid Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 49.5,
+   "units": 202.02,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 202.02
+  },
+  {
+   "id": "tx-023",
+   "date": "2019-08-19",
+   "scheme": "Nippon India Power & Infra Dir-G",
+   "txType": "Investment in fund",
+   "price": 95.8965,
+   "units": 104.279,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 104.279
+  },
+  {
+   "id": "tx-024",
+   "date": "2019-08-19",
+   "scheme": "SBI MNC Dir-G",
+   "txType": "Investment in fund",
+   "price": 167.596,
+   "units": 59.667,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 59.667
+  },
+  {
+   "id": "tx-025",
+   "date": "2019-08-20",
+   "scheme": "Nippon India Small Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 36.8953,
+   "units": 271.037,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 271.037
+  },
+  {
+   "id": "tx-026",
+   "date": "2019-08-21",
+   "scheme": "Nippon India Multi Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 89.7255,
+   "units": 111.451,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 111.451
+  },
+  {
+   "id": "tx-027",
+   "date": "2019-08-21",
+   "scheme": "SBI Focused Dir-G",
+   "txType": "Investment in fund",
+   "price": 140.7682,
+   "units": 71.039,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 71.039
+  },
+  {
+   "id": "tx-028",
+   "date": "2019-08-22",
+   "scheme": "Quant Small Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 36.5979,
+   "units": 273.24,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 273.24
+  },
+  {
+   "id": "tx-029",
+   "date": "2019-08-23",
+   "scheme": "UTI Nifty 50 Index Dir-G",
+   "txType": "Investment in fund",
+   "price": 71.5971,
+   "units": 139.67,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 139.67
+  },
+  {
+   "id": "tx-030",
+   "date": "2019-08-27",
+   "scheme": "SBI Contra Dir-G",
+   "txType": "Investment in fund",
+   "price": 100.5416,
+   "units": 99.461,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 99.461
+  },
+  {
+   "id": "tx-031",
+   "date": "2019-09-03",
+   "scheme": "SBI Small Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 51.9742,
+   "units": 192.403,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 192.403
+  },
+  {
+   "id": "tx-032",
+   "date": "2019-09-04",
+   "scheme": "ICICI Pru Large & Mid Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 319.16,
+   "units": 31.332,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 31.332
+  },
+  {
+   "id": "tx-033",
+   "date": "2019-10-15",
+   "scheme": "Franklin India Flexi Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 598.4742,
+   "units": 16.709,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 16.709
+  },
+  {
+   "id": "tx-034",
+   "date": "2019-10-17",
+   "scheme": "HDFC Flexi Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 679.717,
+   "units": 14.712,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 14.712
+  },
+  {
+   "id": "tx-035",
+   "date": "2019-10-30",
+   "scheme": "ABSL Flexi Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 782.83,
+   "units": 12.774,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 12.774
+  },
+  {
+   "id": "tx-036",
+   "date": "2019-11-29",
+   "scheme": "Nippon India Growth Mid Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 1189.88,
+   "units": 8.404,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 8.404
+  },
+  {
+   "id": "tx-037",
+   "date": "2020-02-26",
+   "scheme": "Bandhan Small Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 10.0,
+   "units": 1000.0,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 1000.0
+  },
+  {
+   "id": "tx-038",
+   "date": "2020-03-12",
+   "scheme": "Tata Multi Asset Allocation Dir-G",
+   "txType": "Investment in fund",
+   "price": 9.5483,
+   "units": 1047.307,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 1047.307
+  },
+  {
+   "id": "tx-039",
+   "date": "2020-07-01",
+   "scheme": "Bank of India Flexi Cap Dir-G",
+   "txType": "Investment in fund",
+   "price": 10.04,
+   "units": 996.016,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 996.016
+  },
+  {
+   "id": "tx-040",
+   "date": "2021-03-17",
+   "scheme": "Kotak Nifty Next 50 Index Dir-G",
+   "txType": "Investment in fund",
+   "price": 9.7061,
+   "units": 1030.28,
+   "amount": 10000,
+   "folioId": "1",
+   "source": "import",
+   "balUnits": 1030.28
+  }
+ ],
+ "schemeMapping": {
+  "Kotak Large Cap Dir-G": {
+   "amfiCode": "120152",
+   "amfiName": "Kotak Large Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "Kotak Flexi Cap Dir-G": {
+   "amfiCode": "120166",
+   "amfiName": "Kotak Flexi Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "Parag Parikh ELSS Tax Saver Dir-G": {
+   "amfiCode": "147481",
+   "amfiName": "Parag Parikh ELSS Tax Saver Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Earliest NAV published in the AMFI feed is the fund's own NFO/launch price."
+  },
+  "Mirae Asset ELSS Tax Saver Dir-G": {
+   "amfiCode": "135781",
+   "amfiName": "Mirae Asset ELSS Tax Saver Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "Parag Parikh Flexi Cap Dir-G": {
+   "amfiCode": "122639",
+   "amfiName": "Parag Parikh Flexi Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "Invesco India Small Cap Dir-G": {
+   "amfiCode": "145137",
+   "amfiName": "Invesco India Small Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "Tata Small Cap Dir-G": {
+   "amfiCode": "145206",
+   "amfiName": "Tata Small Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "ICICI Pru Balanced Advantage Dir-G": {
+   "amfiCode": "120377",
+   "amfiName": "ICICI Pru Balanced Advantage Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "ABSL Mid Cap Dir-G": {
+   "amfiCode": "119620",
+   "amfiName": "ABSL Mid Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "ICICI Pru Value Dir-G": {
+   "amfiCode": "120323",
+   "amfiName": "ICICI Pru Value Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "Nippon India Banking & Financial Services Dir-G": {
+   "amfiCode": "118589",
+   "amfiName": "Nippon India Banking & Financial Services Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "HDFC Balanced Advantage Dir-G": {
+   "amfiCode": "118968",
+   "amfiName": "HDFC Balanced Advantage Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "ABSL Small Cap Dir-G": {
+   "amfiCode": "119556",
+   "amfiName": "ABSL Small Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "Edelweiss Large & Mid Cap Dir-G": {
+   "amfiCode": "140175",
+   "amfiName": "Edelweiss Large & Mid Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "ICICI Pru Large Cap Dir-G": {
+   "amfiCode": "120586",
+   "amfiName": "ICICI Pru Large Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "ABSL Balanced Advantage Dir-G": {
+   "amfiCode": "131670",
+   "amfiName": "ABSL Balanced Advantage Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "Kotak Mid Cap Dir-G": {
+   "amfiCode": "119775",
+   "amfiName": "Kotak Mid Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "ICICI Pru Infrastructure Dir-G": {
+   "amfiCode": "120621",
+   "amfiName": "ICICI Pru Infrastructure Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "SBI Healthcare Opportunities Dir-G": {
+   "amfiCode": "119783",
+   "amfiName": "SBI Healthcare Opportunities Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "ICICI Pru Banking & Financial Services Dir-G": {
+   "amfiCode": "120244",
+   "amfiName": "ICICI Pru Banking & Financial Services Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "HDFC Mid Cap Dir-G": {
+   "amfiCode": "118989",
+   "amfiName": "HDFC Mid Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "Invesco India Mid Cap Dir-G": {
+   "amfiCode": "120403",
+   "amfiName": "Invesco India Mid Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "Nippon India Power & Infra Dir-G": {
+   "amfiCode": "118763",
+   "amfiName": "Nippon India Power & Infra Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "SBI MNC Dir-G": {
+   "amfiCode": "119711",
+   "amfiName": "SBI MNC Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "Nippon India Small Cap Dir-G": {
+   "amfiCode": "118778",
+   "amfiName": "Nippon India Small Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "Nippon India Multi Cap Dir-G": {
+   "amfiCode": "118650",
+   "amfiName": "Nippon India Multi Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "SBI Focused Dir-G": {
+   "amfiCode": "119727",
+   "amfiName": "SBI Focused Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "Quant Small Cap Dir-G": {
+   "amfiCode": "120828",
+   "amfiName": "Quant Small Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "UTI Nifty 50 Index Dir-G": {
+   "amfiCode": "120716",
+   "amfiName": "UTI Nifty 50 Index Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "SBI Contra Dir-G": {
+   "amfiCode": "119835",
+   "amfiName": "SBI Contra Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "SBI Small Cap Dir-G": {
+   "amfiCode": "125497",
+   "amfiName": "SBI Small Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "ICICI Pru Large & Mid Cap Dir-G": {
+   "amfiCode": "120596",
+   "amfiName": "ICICI Pru Large & Mid Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "Franklin India Flexi Cap Dir-G": {
+   "amfiCode": "118535",
+   "amfiName": "Franklin India Flexi Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "HDFC Flexi Cap Dir-G": {
+   "amfiCode": "118955",
+   "amfiName": "HDFC Flexi Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "ABSL Flexi Cap Dir-G": {
+   "amfiCode": "120564",
+   "amfiName": "ABSL Flexi Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "Nippon India Growth Mid Cap Dir-G": {
+   "amfiCode": "118668",
+   "amfiName": "Nippon India Growth Mid Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Purchase priced at the earliest NAV the AMFI feed serves for this scheme code; the direct plan itself started earlier (1-Jan-2013 for pre-2013 schemes)."
+  },
+  "Bandhan Small Cap Dir-G": {
+   "amfiCode": "147946",
+   "amfiName": "Bandhan Small Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Earliest NAV published in the AMFI feed is the fund's own NFO/launch price."
+  },
+  "Tata Multi Asset Allocation Dir-G": {
+   "amfiCode": "148053",
+   "amfiName": "Tata Multi Asset Allocation Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Earliest NAV published in the AMFI feed is the fund's own NFO/launch price."
+  },
+  "Bank of India Flexi Cap Dir-G": {
+   "amfiCode": "148404",
+   "amfiName": "Bank of India Flexi Cap Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Earliest NAV published in the AMFI feed is the fund's own NFO/launch price."
+  },
+  "Kotak Nifty Next 50 Index Dir-G": {
+   "amfiCode": "148745",
+   "amfiName": "Kotak Nifty Next 50 Index Dir-G",
+   "status": "mapped",
+   "confidence": "verified",
+   "matchMethod": "manual-verified",
+   "reviewNote": "Earliest NAV published in the AMFI feed is the fund's own NFO/launch price."
+  }
+ },
+ "navByScheme": {
+  "Kotak Large Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "656.9130"
+   }
+  ],
+  "Kotak Flexi Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "93.2700"
+   }
+  ],
+  "Parag Parikh ELSS Tax Saver Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "33.8649"
+   }
+  ],
+  "Mirae Asset ELSS Tax Saver Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "57.4820"
+   }
+  ],
+  "Parag Parikh Flexi Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "89.7169"
+   }
+  ],
+  "Invesco India Small Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "53.4600"
+   }
+  ],
+  "Tata Small Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "44.8816"
+   }
+  ],
+  "ICICI Pru Balanced Advantage Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "86.7200"
+   }
+  ],
+  "ABSL Mid Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "934.9800"
+   }
+  ],
+  "ICICI Pru Value Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "508.9900"
+   }
+  ],
+  "Nippon India Banking & Financial Services Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "698.3653"
+   }
+  ],
+  "HDFC Balanced Advantage Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "561.3770"
+   }
+  ],
+  "ABSL Small Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "113.4580"
+   }
+  ],
+  "Edelweiss Large & Mid Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "105.9950"
+   }
+  ],
+  "ICICI Pru Large Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "116.3400"
+   }
+  ],
+  "ABSL Balanced Advantage Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "128.7300"
+   }
+  ],
+  "Kotak Mid Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "167.2730"
+   }
+  ],
+  "ICICI Pru Infrastructure Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "219.6200"
+   }
+  ],
+  "SBI Healthcare Opportunities Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "605.9053"
+   }
+  ],
+  "ICICI Pru Banking & Financial Services Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "148.8900"
+   }
+  ],
+  "HDFC Mid Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "229.5100"
+   }
+  ],
+  "Invesco India Mid Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "237.2600"
+   }
+  ],
+  "Nippon India Power & Infra Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "406.0553"
+   }
+  ],
+  "SBI MNC Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "448.8180"
+   }
+  ],
+  "Nippon India Small Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "206.4740"
+   }
+  ],
+  "Nippon India Multi Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "324.0605"
+   }
+  ],
+  "SBI Focused Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "454.0467"
+   }
+  ],
+  "Quant Small Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "315.7119"
+   }
+  ],
+  "UTI Nifty 50 Index Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "163.8847"
+   }
+  ],
+  "SBI Contra Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "406.1107"
+   }
+  ],
+  "SBI Small Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "215.6735"
+   }
+  ],
+  "ICICI Pru Large & Mid Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "1184.5800"
+   }
+  ],
+  "Franklin India Flexi Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "1750.4250"
+   }
+  ],
+  "HDFC Flexi Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "2226.7100"
+   }
+  ],
+  "ABSL Flexi Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "2219.3100"
+   }
+  ],
+  "Nippon India Growth Mid Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "4968.1133"
+   }
+  ],
+  "Bandhan Small Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "56.7950"
+   }
+  ],
+  "Tata Multi Asset Allocation Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "28.2785"
+   }
+  ],
+  "Bank of India Flexi Cap Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "41.8900"
+   }
+  ],
+  "Kotak Nifty Next 50 Index Dir-G": [
+   {
+    "date": "2026-09-17",
+    "nav": "20.8843"
+   }
+  ]
+ },
+ "benchmarks": [
+  {
+   "id": "ppf",
+   "label": "PPF (7.1%)",
+   "color": "#00e676",
+   "enabled": true,
+   "type": "fixed",
+   "rate": 0.071
+  },
+  {
+   "id": "niftyidx",
+   "label": "Nifty 50 Index Fund (open)",
+   "color": "#26c6da",
+   "enabled": true,
+   "type": "mfapi",
+   "amfiCode": "120716"
+  },
+  {
+   "id": "nifty50",
+   "label": "Nifty 50",
+   "color": "#00c8ff",
+   "enabled": false,
+   "type": "market",
+   "ticker": "^NSEI"
+  }
+ ],
+ "country": "IN",
+ "displayCurrency": "INR",
+ "displayUnit": "auto",
+ "displayFmt": {
+  "currency": "INR",
+  "scale": "auto",
+  "dec": 2
+ },
+ "navRefreshInterval": 5,
+ "discountRate": 7,
+ "returnBasis": "book",
+ "enabled": [
+  "Kotak Large Cap Dir-G",
+  "Kotak Flexi Cap Dir-G",
+  "Parag Parikh ELSS Tax Saver Dir-G",
+  "Mirae Asset ELSS Tax Saver Dir-G",
+  "Parag Parikh Flexi Cap Dir-G",
+  "Invesco India Small Cap Dir-G",
+  "Tata Small Cap Dir-G",
+  "ICICI Pru Balanced Advantage Dir-G",
+  "ABSL Mid Cap Dir-G",
+  "ICICI Pru Value Dir-G",
+  "Nippon India Banking & Financial Services Dir-G",
+  "HDFC Balanced Advantage Dir-G",
+  "ABSL Small Cap Dir-G",
+  "Edelweiss Large & Mid Cap Dir-G",
+  "ICICI Pru Large Cap Dir-G",
+  "ABSL Balanced Advantage Dir-G",
+  "Kotak Mid Cap Dir-G",
+  "ICICI Pru Infrastructure Dir-G",
+  "SBI Healthcare Opportunities Dir-G",
+  "ICICI Pru Banking & Financial Services Dir-G",
+  "HDFC Mid Cap Dir-G",
+  "Invesco India Mid Cap Dir-G",
+  "Nippon India Power & Infra Dir-G",
+  "SBI MNC Dir-G",
+  "Nippon India Small Cap Dir-G",
+  "Nippon India Multi Cap Dir-G",
+  "SBI Focused Dir-G",
+  "Quant Small Cap Dir-G",
+  "UTI Nifty 50 Index Dir-G",
+  "SBI Contra Dir-G",
+  "SBI Small Cap Dir-G",
+  "ICICI Pru Large & Mid Cap Dir-G",
+  "Franklin India Flexi Cap Dir-G",
+  "HDFC Flexi Cap Dir-G",
+  "ABSL Flexi Cap Dir-G",
+  "Nippon India Growth Mid Cap Dir-G",
+  "Bandhan Small Cap Dir-G",
+  "Tata Multi Asset Allocation Dir-G",
+  "Bank of India Flexi Cap Dir-G",
+  "Kotak Nifty Next 50 Index Dir-G"
+ ],
+ "period": {
+  "l": "MAX",
+  "days": 99999
+ },
+ "showExited": false,
+ "_validation": {
+  "builtBy": "Claude, 18-Sep-2026",
+  "purpose": "One Rs 10,000 purchase in each of the 40 direct-plan funds screened in the 18-Sep-2026 assessment, so the ranking can be reproduced inside MF Advisor.",
+  "funds": 40,
+  "amountPerFund": 10000,
+  "totalInvested": 400000,
+  "purchaseDates": "Each fund is bought at the earliest NAV the AMFI feed (api.mfapi.in) actually serves for its scheme code. For 4 funds launched after 2019 that IS the NFO price (Bank of India Flexi Cap, Kotak Nifty Next 50 Index, Bandhan Small Cap 10.00, Parag Parikh ELSS, Tata Multi Asset). For older funds the feed is capped at roughly 1,000-2,000 rows, so the true 2013 direct-plan start price could not be read and the earliest served NAV (Jul-Nov 2019) is used instead.",
+  "note": "Risk metrics (Sortino, Std Dev, Max Drawdown, Beta, Alpha) are computed from full NAV history, not from the purchase date, so they are unaffected by this. Only XIRR and absolute return depend on the purchase date. Click the NAV indicator after loading to backfill history, then open Fund Overview and Risk Analytics.",
+  "assessmentWeights": {
+   "sortino": 30,
+   "cagr": 20,
+   "consistency": 15,
+   "alpha": 10,
+   "downsideCapture": 10,
+   "maxDrawdown": 10,
+   "stdDev": 5
+  }
+ }
+}
